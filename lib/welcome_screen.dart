@@ -22,7 +22,7 @@ class WelcomeScreen extends StatelessWidget {
           ),
           Positioned(
             top: 245,
-            left: 310,
+            left: 280,
             child: Container(
 
               padding:EdgeInsets.all(10),
@@ -56,7 +56,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 Positioned(
                   top: 200,
-                  right: 250,
+                  right: 230,
                   child: Container(
 
                     padding:EdgeInsets.all(10),
@@ -93,7 +93,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 305,
+                  top: 315,
                   left: 110,
                   child: Container(
 
@@ -217,7 +217,7 @@ class WelcomeScreen extends StatelessWidget {
               padding: EdgeInsets.only(top: 50,left: 10),
               child: Text('dlveries',style: TextStyle(fontFamily: 'SometypeMono',
 
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).primaryColor,
                    decoration:  TextDecoration.underline,
                   letterSpacing: 2,
                   fontWeight: FontWeight.bold,fontSize: 20),),

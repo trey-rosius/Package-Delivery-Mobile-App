@@ -45,9 +45,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   bool loadedAmplify = false;
-  Future<void> _initializeApp() async{
-    await _configureAmplify();
-  }
 
 
   Future<void> _configureAmplify() async {
@@ -61,6 +58,18 @@ class _MyAppState extends State<MyApp> {
         AmplifyAPI(),
 
       ]);
+
+
+      await Amplify.configure(amplifyconfig);
+      _logger.debug('Successfully configured Amplify');
+
+      Amplify.Hub.listen(HubChannel.Auth, (event) {
+        _logger.info('Auth Event: $event');
+      });
+    } on Exception catch (e, st) {
+      _logger.error('Configuring Amplify failed', e, st);
+    }
+/*
 
       // Once Plugins are added, configure Amplify
       await Amplify.configure(amplifyconfig);
@@ -78,7 +87,6 @@ class _MyAppState extends State<MyApp> {
 
 
 
-
     } catch(e) {
       setState(() {
         loadedAmplify = false;
@@ -91,14 +99,18 @@ class _MyAppState extends State<MyApp> {
 
     }
 
+      */
+
+
 
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _initializeApp();
+
     super.initState();
+    _configureAmplify();
   }
   @override
   Widget build(BuildContext context) {
@@ -141,8 +153,8 @@ class _MyAppState extends State<MyApp> {
 
 
                   ],
-                  child: Amplify.isConfigured ?
-                 WelcomeScreen() : const Center(child: CircularProgressIndicator(),)),
+                  child:
+                 WelcomeScreen() ),
         ),
       ],
 
