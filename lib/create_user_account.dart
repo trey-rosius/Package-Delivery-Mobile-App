@@ -408,6 +408,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                         margin: const EdgeInsets.only(top: 20),
                         child: TextFormField(
                           controller: profileRepo.lastNameController,
+                          maxLines: 4,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
                             filled: false,
@@ -529,7 +530,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                                       'Continue',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white),
+                                          color: Colors.black),
                                     )),
                               ),
                             )
