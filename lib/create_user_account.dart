@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
@@ -12,7 +11,7 @@ import 'package:provider/provider.dart';
 
 
 class CreateUserAccountScreen extends StatefulWidget {
-  const CreateUserAccountScreen({required this.email});
+  const CreateUserAccountScreen({super.key, required this.email});
   final String email;
 
   @override
@@ -51,7 +50,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
         // Why network?
         // See https://pub.dev/packages/image_picker#getting-ready-for-the-web-platform
 
-        return Container(
+        return SizedBox(
           height: 50,
           width: 50,
           child: ClipRRect(
@@ -82,7 +81,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
         },
         child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Icon(
               Icons.account_circle,
               size: 90,
@@ -96,7 +95,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
         },
         child: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: Icon(
               Icons.account_circle,
               size: 130,
@@ -163,16 +162,16 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
     var profileRepo = context.watch<ProfileRepository>();
 
     return Scaffold(
-        backgroundColor: Color(0xFF264653),
+
         key: _scaffoldKey,
-        appBar: AppBar(
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: Theme.of(context).primaryColor,
-          title: const Text(
-            'Edit Profile',
-            style: TextStyle(color: Colors.white),
-          ),
+        appBar:  PreferredSize(
+
+
+    preferredSize: const Size(double.infinity,80),
+          child: SafeArea(
+              child:
+          Container(child:
+          const Text('Edit Profile',style: TextStyle(color: Colors.white),))),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -196,7 +195,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                                 children: [
                                   _previewImage(profileRepo, context),
                                   const Text(
-                                    "Change profile picture",
+                                    "profile picture",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white),
@@ -246,10 +245,12 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                       Container(
                         margin: const EdgeInsets.only(top: 20),
                         child: TextFormField(
-                          controller: profileRepo.usernameController,
+                          controller: profileRepo.phoneNumberController,
+                          keyboardType: TextInputType.phone,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            filled: true,
+                            prefixIcon: Icon(Icons.phone,color: Theme.of(context).colorScheme.secondary,),
+                            filled: false,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
@@ -260,7 +261,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
@@ -268,20 +269,21 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
                                   width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
-                            labelText: 'username',
-                            labelStyle: TextStyle(color: Colors.white),
-                            hintText: "username",
+                            labelText: 'phone number',
+
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintText: "phone number",
                             hintStyle: TextStyle(
                               color: Colors.grey[600],
                               fontSize: 15,
@@ -302,7 +304,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                           controller: profileRepo.firstNameController,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            filled: true,
+                            filled: false,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
@@ -313,7 +315,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
@@ -321,19 +323,19 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
                                   width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
                             labelText: 'First Name',
-                            labelStyle: TextStyle(color: Colors.white),
+                            labelStyle: const TextStyle(color: Colors.white),
                             hintText: "First Name",
                             hintStyle: TextStyle(
                               color: Colors.grey[600],
@@ -355,7 +357,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                           controller: profileRepo.lastNameController,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(
-                            filled: true,
+                            filled: false,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
@@ -366,7 +368,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
@@ -374,19 +376,19 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
                                   width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: (Colors.grey[700])!, width: 2),
-                              borderRadius: BorderRadius.all(
+                              borderRadius: const BorderRadius.all(
                                 Radius.circular(10),
                               ),
                             ),
                             labelText: 'Last Name',
-                            labelStyle: TextStyle(color: Colors.white),
+                            labelStyle: const TextStyle(color: Colors.white),
                             hintText: "Last Name",
                             hintStyle: TextStyle(
                               color: Colors.grey[600],
@@ -397,6 +399,59 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Last Name';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          controller: profileRepo.lastNameController,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            filled: false,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 2),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 2),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 2),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            labelText: "Address",
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintText: "What's your address ?",
+                            hintStyle: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "What's your address ?";
                             }
                             return null;
                           },

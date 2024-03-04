@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +17,8 @@ class ProfileRepository extends ChangeNotifier {
 
 
 
-  final usernameController = TextEditingController();
+  final addressController = TextEditingController();
+  final phoneNumberController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
 
@@ -30,18 +29,26 @@ class ProfileRepository extends ChangeNotifier {
 
   bool _loading = false;
   String _userId='';
-  String _username='';
+  int _phoneNumber=0;
+  String _address="";
 
   bool _logout = false;
 
 
+  String get address => _address;
 
-  String get username => _username;
-
-  set username(String value) {
-    _username = value;
+  set address(String value) {
+    _address = value;
     notifyListeners();
   }
+
+  String get userId => _userId;
+
+  set userId(String value) {
+    _userId = value;
+    notifyListeners();
+  }
+
   bool get logout => _logout;
 
   set logout(bool value) {
@@ -75,46 +82,6 @@ class ProfileRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-/*
-  /// save user details to profile
-  ///
-  Future<bool>saveUserProfileDetails(String email) async{
-    loading = true;
-    if(kDebugMode){
-      //033fb710-e931-11ed-beee-b3f37cb21a38.png
-      print('profile pic key here $profilePicKey');
-    }
-    User newUser = User(username:usernameController.text.trim(),firstName: firstNameController.text.trim(),
-        lastName: lastNameController.text.trim(),
-        profilePicKey: profilePicKey,
-
-        profilePicUrl: profilePic,email: email,createdOn: TemporalTimestamp.now());
-
-    return await Amplify.DataStore.save(newUser).then((_){
-      loading = false;
-      return true;
-    });
-
-
-  }
-  //userId = test@gmail.com
-  
-
-
-  Future<User>getUserProfile(String userId) async{
-
-    List<User> user = await Amplify.DataStore.query(User.classType, where: User.EMAIL.eq(userId));
-
-    profilePic =user[0].profilePicUrl!;
-
-
-    return user[0];
-
-
-  }
-
-*/
-
 
   void showInSnackBar(BuildContext context,String value) {
     ScaffoldMessenger.of(context).showSnackBar( SnackBar(
@@ -133,7 +100,8 @@ class ProfileRepository extends ChangeNotifier {
   void dispose() {
     // TODO: implement dispose
 
-    usernameController.dispose();
+    phoneNumberController.dispose();
+    addressController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
 
@@ -215,6 +183,10 @@ class ProfileRepository extends ChangeNotifier {
     return authUser;
   }
 
+  int get phoneNumber => _phoneNumber;
 
-
+  set phoneNumber(int value) {
+    _phoneNumber = value;
+    notifyListeners();
+  }
 }

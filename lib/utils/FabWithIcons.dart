@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 
 class FabWithIcons extends StatefulWidget {
-  FabWithIcons({required this.icons, required this.onIconTapped});
+  const FabWithIcons({super.key, required this.icons, required this.onIconTapped});
   final List<IconData> icons;
   final ValueChanged<int> onIconTapped;
   @override
@@ -71,7 +71,7 @@ class FabWithIconsState extends State<FabWithIcons> with TickerProviderStateMixi
       },
       tooltip: 'Increment',
       elevation: 2.0,
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
     );
   }
 

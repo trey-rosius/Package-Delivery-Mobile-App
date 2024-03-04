@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -12,7 +11,7 @@ class StepProgressView extends StatelessWidget {
   final double lineWidth = 3.0;
 
   StepProgressView(
-      {
+      {super.key, 
         required int curStep,
         required List<String> titles,
         required double width,
@@ -23,8 +22,9 @@ class StepProgressView extends StatelessWidget {
         _activeColor = color,
         assert(width > 0);
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
         width: _width,
         child: Column(
           children: <Widget>[
@@ -53,10 +53,10 @@ class StepProgressView extends StatelessWidget {
         Container(
           width: 20.0,
           height: 20.0,
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           decoration: BoxDecoration(
             /* color: circleColor,*/
-            borderRadius: BorderRadius.all( Radius.circular(22.0)),
+            borderRadius: const BorderRadius.all( Radius.circular(22.0)),
             border: Border.all(
               color: circleColor,
               width: 2.0,

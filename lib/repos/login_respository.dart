@@ -1,14 +1,9 @@
 
 
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:go_router/go_router.dart';
 
 
 
@@ -184,7 +179,7 @@ class LoginRepository extends ChangeNotifier{
 
 
       return result;
-    } on AuthException catch (e) {
+    } on AuthException {
 
      rethrow;
     }

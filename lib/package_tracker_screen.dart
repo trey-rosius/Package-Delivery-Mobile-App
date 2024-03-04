@@ -11,7 +11,6 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'api_key.dart';
-import 'constants.dart';
 class PackageTrackerScreen extends StatefulWidget {
   const PackageTrackerScreen({Key? key}) : super(key: key);
 
@@ -25,7 +24,7 @@ class _PackageTrackerScreenState extends State<PackageTrackerScreen> {
 
   final Completer<GoogleMapController> _controller =
   Completer<GoogleMapController>();
-  Set<Polyline> _polyline = {};
+  final Set<Polyline> _polyline = {};
   List<LatLng> polylineCoordinates = [];
 
 
@@ -35,7 +34,7 @@ class _PackageTrackerScreenState extends State<PackageTrackerScreen> {
 
   Position? _position;
 
-  List<Position?> _positionList = [];
+  final List<Position?> _positionList = [];
   PolylinePoints polylinePoints = PolylinePoints();
 
   static const LatLng _destination =  LatLng(4.0938311, 9.7508429);
@@ -97,12 +96,12 @@ class _PackageTrackerScreenState extends State<PackageTrackerScreen> {
   }
 
   void setCustomMarkerIcon(){
-  BitmapDescriptor.fromAssetImage(createLocalImageConfiguration(context, size: Size(20,20)), 'assets/images/source.png').then((icon){
+  BitmapDescriptor.fromAssetImage(createLocalImageConfiguration(context, size: const Size(20,20)), 'assets/images/source.png').then((icon){
 
      sourceIcon = icon;
 
   });
-  BitmapDescriptor.fromAssetImage(createLocalImageConfiguration(context, size: Size(20, 20)), 'assets/images/destination.png').then((icon){
+  BitmapDescriptor.fromAssetImage(createLocalImageConfiguration(context, size: const Size(20, 20)), 'assets/images/destination.png').then((icon){
 
      destinationIcon = icon;
 
@@ -110,12 +109,12 @@ class _PackageTrackerScreenState extends State<PackageTrackerScreen> {
   }
   void streamPosition(LocationRepository locationRepository) async {
 
-    final LocationSettings locationSettings = LocationSettings(
+    const LocationSettings locationSettings = LocationSettings(
       accuracy: LocationAccuracy.high,
       distanceFilter: 5,
     );
 
-    GoogleMapController _googleMapController = await _controller.future;
+    GoogleMapController googleMapController = await _controller.future;
     StreamSubscription<Position> positionStream =
     Geolocator.getPositionStream(locationSettings: locationSettings).listen(
             (Position? position) {
@@ -123,7 +122,7 @@ class _PackageTrackerScreenState extends State<PackageTrackerScreen> {
               _positionList.add(position);
               _position = position;
                getPolyPoints();
-              _googleMapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+              googleMapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
                   zoom: 15.5,
                   target: LatLng(
                 position.latitude,position.longitude
@@ -132,14 +131,14 @@ class _PackageTrackerScreenState extends State<PackageTrackerScreen> {
 
               });
 
-             if(position != null){
-               double longitude = position.longitude;
-               double latitude = position.latitude;
+             double longitude = position.longitude;
+             double latitude = position.latitude;
 
-              // locationRepository.createPackage(longitude, latitude);
-             }
-
-          print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
+            // locationRepository.createPackage(longitude, latitude);
+           
+          if (kDebugMode) {
+            print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
+          }
         });
 
 
@@ -205,14 +204,14 @@ class _PackageTrackerScreenState extends State<PackageTrackerScreen> {
     );
     polylineCoordinates.clear();
     if(result.points.isNotEmpty){
-      result.points.forEach((PointLatLng pointLatLng) {
+      for (var pointLatLng in result.points) {
 
           polylineCoordinates.add(
               LatLng(pointLatLng.latitude, pointLatLng.longitude)
           );
 
 
-      });
+      }
 
 setState(() {
 
@@ -238,7 +237,7 @@ setState(() {
     setCustomMarkerIcon();
     return Scaffold(
       backgroundColor: Colors.black,
-      body:_position == null ? Text("loading..."):
+      body:_position == null ? const Text("loading..."):
       GoogleMap(
          mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
@@ -250,17 +249,17 @@ setState(() {
         },
 
         markers: {
-          Marker(markerId: MarkerId("current"),
+          Marker(markerId: const MarkerId("current"),
             icon: sourceIcon,
             position: LatLng(_position!.latitude,_position!.longitude),),
 
-          Marker(markerId: MarkerId("destination"),
+          Marker(markerId: const MarkerId("destination"),
               icon: destinationIcon,
               position: _destination)
 
         },
         polylines: {
-          Polyline(polylineId: PolylineId("route"),
+          Polyline(polylineId: const PolylineId("route"),
             points: polylineCoordinates,
             color: Colors.purpleAccent,
             width: 3,)

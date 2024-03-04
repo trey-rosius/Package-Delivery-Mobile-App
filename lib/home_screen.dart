@@ -12,7 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> deliveryProgress = ['PENDING', "IN TRANSIT", "DELIVERED"];
-  int _curStep = 2;
+  final int _curStep = 2;
   int _selectedTabIndex = 0;
 
   void _selectedTab(int index) {
@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
                    Container(
-                     padding: EdgeInsets.only(top: 30,bottom: 10),
+                     padding: const EdgeInsets.only(top: 30,bottom: 10),
                      child: Text('dlveries',style: TextStyle(fontFamily: 'SometypeMono',
 
                          color: Theme.of(context).colorScheme.secondary,
@@ -58,12 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
              
              
                          decoration: BoxDecoration(
-                             color: Color(0xFF222222),
+                             color: const Color(0xFF222222),
                              borderRadius: BorderRadius.circular(30)
              
                          ),
                          padding: const EdgeInsets.only(top: 7,right: 10),
-                         margin: EdgeInsets.only(right: 10),
+                         margin: const EdgeInsets.only(right: 10),
              
              
                          child: Column(
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                            height: 50,width: 50,)),
              
                                      Container(
-                                         padding: EdgeInsets.all(2),
+                                         padding: const EdgeInsets.all(2),
                                          decoration:  BoxDecoration(
                                              border: Border.all(color: Colors.white,width: 2),
                                              shape: BoxShape.circle,
@@ -92,13 +92,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                    ],
                                  ),
                                  Container(
-                                   padding: EdgeInsets.only(left: 10),
+                                   padding: const EdgeInsets.only(left: 10),
                                    child: Column(
                                      mainAxisAlignment: MainAxisAlignment.start,
                                      crossAxisAlignment: CrossAxisAlignment.start,
                                      children: [
-                                       Text("Hi, Rosius",style: TextStyle(color: Colors.white,fontSize: 14),),
-                                       Text("Update Profile",style: TextStyle(color: Colors.grey,fontSize: 12),),
+                                       const Text("Hi, Rosius",style: TextStyle(color: Colors.white,fontSize: 14),),
+                                       const Text("Update Profile",style: TextStyle(color: Colors.grey,fontSize: 12),),
                                        Text("Out for delivery",style: TextStyle(color: Theme.of(context).colorScheme.secondary,fontSize: 13,fontWeight: FontWeight.bold),)
                                      ],
                                    ),
@@ -107,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                              ),
 
                              Container(
-                               padding: EdgeInsets.only(top: 10,bottom: 5),
+                               padding: const EdgeInsets.only(top: 10,bottom: 5),
              
              
                                child: Row(
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
              
                                      child:  SvgPicture.asset('assets/svgs/precise_location.svg',height: 70,width:70,color: Colors.black,),),
                                    Container(
-                                     padding: EdgeInsets.only(left: 10),
+                                     padding: const EdgeInsets.only(left: 10),
                                      child: const Column(
                                        mainAxisAlignment: MainAxisAlignment.start,
                                        crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
              
              
                        ),
-                       Column(
+                       const Column(
                          children: [
                           IconText(
                                  header1:"Order Number",
@@ -173,12 +173,12 @@ class _HomeScreenState extends State<HomeScreen> {
                    Container(
              
                      decoration: BoxDecoration(
-                         color: Color(0xFF222222),
+                         color: const Color(0xFF222222),
                          borderRadius: BorderRadius.circular(10)
              
                      ),
-                     padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-                     margin: EdgeInsets.symmetric(vertical: 20,),
+                     padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                     margin: const EdgeInsets.symmetric(vertical: 20,),
              
              
                      child: Column(
@@ -197,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                            ],
                          ),
                          Container(
-                           padding: EdgeInsets.only(top: 10,bottom: 20),
+                           padding: const EdgeInsets.only(top: 10,bottom: 20),
                            child: StepProgressView(width: MediaQuery.of(context).size.width,
                              curStep: _curStep,
                              color: Theme.of(context).colorScheme.secondary,
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen> {
                          Column(
                            children: [
                              Container(
-                               padding: EdgeInsets.symmetric(vertical: 10),
+                               padding: const EdgeInsets.symmetric(vertical: 10),
                                child: const Row(
                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                  children: [
@@ -254,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                ),
                              ),
                              Container(
-                               padding: EdgeInsets.symmetric(vertical: 10),
+                               padding: const EdgeInsets.symmetric(vertical: 10),
                                child:  Row(
                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                  children: [
@@ -275,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                      crossAxisAlignment: CrossAxisAlignment.start,
                                      children: [
                                        Text('5:12pm',style: TextStyle(fontSize: 15,color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.bold),),
-                                       Text('21 Nov 2024',
+                                       const Text('21 Nov 2024',
                                          style: TextStyle(color: Colors.grey,fontSize: 12),)
                                      ],
                                    ),
@@ -283,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                ),
                              ),
                              Container(
-                               padding: EdgeInsets.symmetric(vertical: 10),
+                               padding: const EdgeInsets.symmetric(vertical: 10),
                                child: const Row(
                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                  children: [
@@ -320,22 +320,22 @@ class _HomeScreenState extends State<HomeScreen> {
                    ),
                    Container(
                      decoration: BoxDecoration(
-                         color: Color(0xFF222222),
+                         color: const Color(0xFF222222),
                          borderRadius: BorderRadius.circular(10)
              
                      ),
-                     padding: EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-                     margin: EdgeInsets.symmetric(vertical: 20,),
+                     padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+                     margin: const EdgeInsets.symmetric(vertical: 20,),
              
                      child: Column(children: [
              
-                       Row(
+                       const Row(
                          children: [
                            Text('Recent Deliveries',style: TextStyle(fontSize: 20,color: Colors.white),),
                          ],
                        ),
                        Container(
-                         margin: EdgeInsets.symmetric(vertical: 5),
+                         margin: const EdgeInsets.symmetric(vertical: 5),
                          height: 80,
                          width: size.width,
                          alignment: Alignment.center,
@@ -344,10 +344,10 @@ class _HomeScreenState extends State<HomeScreen> {
                              color: Theme.of(context).colorScheme.secondary,
                              borderRadius: BorderRadius.circular(10)
                          ),
-                         child: Text('Delivery 1'),
+                         child: const Text('Delivery 1'),
                        ),
                        Container(
-                         margin: EdgeInsets.symmetric(vertical: 5),
+                         margin: const EdgeInsets.symmetric(vertical: 5),
                          height: 80,
                          width: size.width,
                          alignment: Alignment.center,
@@ -356,10 +356,10 @@ class _HomeScreenState extends State<HomeScreen> {
                              color: Theme.of(context).colorScheme.secondary,
                              borderRadius: BorderRadius.circular(10)
                          ),
-                         child: Text('Delivery 1'),
+                         child: const Text('Delivery 1'),
                        ),
                        Container(
-                         margin: EdgeInsets.symmetric(vertical: 5),
+                         margin: const EdgeInsets.symmetric(vertical: 5),
                          height: 80,
                          width: size.width,
                          alignment: Alignment.center,
@@ -368,7 +368,7 @@ class _HomeScreenState extends State<HomeScreen> {
                              color: Theme.of(context).colorScheme.secondary,
                              borderRadius: BorderRadius.circular(10)
                          ),
-                         child: Text('Delivery 1'),
+                         child: const Text('Delivery 1'),
                        ),
                      ],),
              

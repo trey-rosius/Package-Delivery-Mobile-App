@@ -16,7 +16,7 @@ class FABBottomAppBarItem {
 }
 
 class FABBottomAppBar extends StatefulWidget {
-  FABBottomAppBar({
+  FABBottomAppBar({super.key, 
     required this.items,
     required  this.centerItemText,
     this.height = 60.0,
@@ -93,7 +93,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
                 return LocationRepository.instance();
               },
                   child:
-             PackageTrackerScreen());
+             const PackageTrackerScreen());
             }));
           },
           child: SizedBox(
@@ -105,7 +105,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
               children: <Widget>[
                 Container(
 
-                  padding:EdgeInsets.all(15),
+                  padding:const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                       color: Theme.of(context).colorScheme.secondary),
@@ -151,7 +151,7 @@ class FABBottomAppBarState extends State<FABBottomAppBar> {
 
 
 
-                Container(
+                SizedBox(
                   height: 30,
                   width: 30,
 

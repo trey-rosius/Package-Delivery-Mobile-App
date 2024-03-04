@@ -15,12 +15,10 @@ import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platf
 
 
 
-import 'package:flutter/foundation.dart';
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'amplifyconfiguration.dart';
-import 'home_screen.dart';
 
 final AmplifyLogger _logger = AmplifyLogger('package_delivery');
 void main() {
@@ -31,7 +29,7 @@ void main() {
     mapsImplementation.useAndroidViewSurface = true;
     initializeMapRenderer();
   }
-  runApp(  MaterialApp(
+  runApp(  const MaterialApp(
     debugShowCheckedModeBanner: false,
       home:MyApp()));
 }
@@ -123,12 +121,12 @@ class _MyAppState extends State<MyApp> {
 
 
 
-        primaryColor: Color(0xFF8000ff),
-        colorScheme:ColorScheme.fromSwatch().copyWith(secondary: Color(0xFFffed48)),
+        primaryColor: const Color(0xFF8000ff),
 
 
         useMaterial3: true,
-        fontFamily: 'Montserrat',
+        fontFamily: 'SometypeMono',
+        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFFffed48)).copyWith(background: Colors.black),
       ),
         routerConfig: _router
         /*
@@ -145,7 +143,8 @@ class _MyAppState extends State<MyApp> {
           name:'createUserAccount',
             path: '/createUserAccount/:email',
         builder: (BuildContext context, GoRouterState state){
-          return CreateUserAccountScreen(email:state.pathParameters['email']!);
+          return ChangeNotifierProvider(create: (context) => ProfileRepository.instance(),
+          child: CreateUserAccountScreen(email:state.pathParameters['email']!),);
 
         }),
         GoRoute(
@@ -162,7 +161,7 @@ class _MyAppState extends State<MyApp> {
 
                   ],
                   child:
-                 WelcomeScreen() ),
+                 const WelcomeScreen() ),
         ),
       ],
 

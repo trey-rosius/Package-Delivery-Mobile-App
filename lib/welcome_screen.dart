@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 class WelcomeScreen extends StatelessWidget {
+  const WelcomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.black,
+
       body: Stack(
 
         children: [
@@ -25,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
             left: 280,
             child: Container(
 
-              padding:EdgeInsets.all(10),
+              padding:const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Theme.of(context).colorScheme.secondary),
@@ -59,7 +61,7 @@ class WelcomeScreen extends StatelessWidget {
                   right: 230,
                   child: Container(
 
-                    padding:EdgeInsets.all(10),
+                    padding:const EdgeInsets.all(10),
                     decoration:  BoxDecoration(
                         shape: BoxShape.circle,
                         color: Theme.of(context).primaryColor),
@@ -88,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                   height:size.height/1.8,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(color: Color(0xFFff7485),width: 2),
+                    border: Border.all(color: const Color(0xFFff7485),width: 2),
                     //color: Colors.grey[800], // Adjust grey tone for the base
                   ),
                 ),
@@ -97,7 +99,7 @@ class WelcomeScreen extends StatelessWidget {
                   left: 110,
                   child: Container(
 
-                    padding:EdgeInsets.all(10),
+                    padding:const EdgeInsets.all(10),
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color(0xFFff7485)),
@@ -150,7 +152,7 @@ class WelcomeScreen extends StatelessWidget {
             alignment: Alignment.center,
             child:  Container(
 
-              padding:EdgeInsets.all(15),
+              padding:const EdgeInsets.all(15),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Theme.of(context).colorScheme.secondary),
@@ -172,7 +174,7 @@ class WelcomeScreen extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 100),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
+              child: SizedBox(
                 height: size.height/14,
                 width: size.width/1.5,
                 child: ElevatedButton(
@@ -182,7 +184,7 @@ class WelcomeScreen extends StatelessWidget {
                   onPressed: (){
                     String email = "test@gmail.com";
                    // /createUserAccount/:email'
-                    context.pushReplacement('/createUserAccount/${email}');
+                    context.pushReplacement('/createUserAccount/$email');
                   },
 
                   child: const Text("Login with Google",style: TextStyle(fontSize: 15,color: Colors.black,
@@ -195,18 +197,18 @@ class WelcomeScreen extends StatelessWidget {
             padding: const EdgeInsets.only(bottom:20),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: Container(
+              child: SizedBox(
                 height: size.height/12,
                 width: size.width/1.2,
                 child: TextButton.icon(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
 
                   ),
                   onPressed: (){
 
                   },
                   icon: Icon(Icons.account_circle_rounded,color: Theme.of(context).colorScheme.secondary,),
-                  label: Text("Create an account",style: TextStyle(color: Colors.white,fontFamily: 'SometypeMono'),),
+                  label: const Text("Create an account",style: TextStyle(color: Colors.white,fontFamily: 'SometypeMono'),),
                 ),
               ),
             ),
@@ -214,7 +216,7 @@ class WelcomeScreen extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Container(
-              padding: EdgeInsets.only(top: 50,left: 10),
+              padding: const EdgeInsets.only(top: 50,left: 10),
               child: Text('dlveries',style: TextStyle(fontFamily: 'SometypeMono',
 
                   color: Theme.of(context).primaryColor,
