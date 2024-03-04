@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:package_delivery/home_screen.dart';
+import 'package:go_router/go_router.dart';
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -180,9 +180,9 @@ class WelcomeScreen extends StatelessWidget {
                       backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.secondary)
                   ),
                   onPressed: (){
-                     Navigator.push(context, MaterialPageRoute(builder: (context){
-                       return const HomeScreen();
-                     }));
+                    String email = "test@gmail.com";
+                   // /createUserAccount/:email'
+                    context.pushReplacement('/createUserAccount/${email}');
                   },
 
                   child: const Text("Login with Google",style: TextStyle(fontSize: 15,color: Colors.black,

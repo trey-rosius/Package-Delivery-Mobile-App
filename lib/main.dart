@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'package:go_router/go_router.dart';
+import 'package:package_delivery/create_user_account.dart';
 import 'package:package_delivery/repos/login_respository.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
 import 'package:package_delivery/welcome_screen.dart';
@@ -141,9 +142,16 @@ class _MyAppState extends State<MyApp> {
   final _router = GoRouter(
       routes:[
         GoRoute(
+          name:'createUserAccount',
+            path: '/createUserAccount/:email',
+        builder: (BuildContext context, GoRouterState state){
+          return CreateUserAccountScreen(email:state.pathParameters['email']!);
+
+        }),
+        GoRoute(
           path: '/',
 
-          builder: (BuildContext _, GoRouterState __) =>
+          builder: (BuildContext context, GoRouterState state) =>
               MultiProvider(
                   providers: [
 
