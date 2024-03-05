@@ -10,45 +10,26 @@ class PackageRepository extends ChangeNotifier {
   final packageDescriptionController = TextEditingController();
   final deliveryAddressController = TextEditingController();
 
-  String _packageStatus="PENDING";
-  String _packageType="FOOD";
-  String _deliveryMode="NORMAL";
+  String _packageType="Food";
+  String _deliveryMode="Standard";
 
-  List<String> _packageStatusList =[ "PENDING",
-    "ASSIGNED",
-    "PICKED_UP",
-    "IN_TRANSIT",
-    "DELIVERED",
-    "CANCELLED"];
 
-  List<String> _packageTypeList = [ " FOOD",
-    "MEDICATION",
-    "ELECTRONICS",
-   "FURNITURE",
-    "FASHION",
-    "BEAUTY",
-    "OTHER"];
+
+  List<String> _packageTypeList = [ "Food",
+    "Medication",
+    "Electronics",
+    "Furniture",
+    "Fashion",
+    "Beauty",
+    "Other"];
 
   List<String> _deliveryModeList = [
-    "NORMAL",
-    "EXPRESS",
-    "PRO"
+    "Standard",
+    "Express",
+    "Pro"
   ];
 
 
-  List<String> get packageStatusList => _packageStatusList;
-
-  set packageStatusList(List<String> value) {
-    _packageStatusList = value;
-    notifyListeners();
-  }
-
-  String get packageStatus => _packageStatus;
-
-  set packageStatus(String value) {
-    _packageStatus = value;
-    notifyListeners();
-  }
 
   String get packageType => _packageType;
 
