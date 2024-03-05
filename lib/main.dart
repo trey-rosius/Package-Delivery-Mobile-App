@@ -19,6 +19,7 @@ import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platf
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'amplifyconfiguration.dart';
+import 'package/create_package_screen.dart';
 
 final AmplifyLogger _logger = AmplifyLogger('package_delivery');
 void main() {
@@ -147,6 +148,15 @@ class _MyAppState extends State<MyApp> {
           child: CreateUserAccountScreen(email:state.pathParameters['email']!),);
 
         }),
+
+        GoRoute(
+            name:'createPackage',
+            path: '/createPackage',
+            builder: (BuildContext context, GoRouterState state){
+              return
+                CreatePackageScreen();
+
+            }),
         GoRoute(
           path: '/',
 

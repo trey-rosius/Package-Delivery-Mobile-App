@@ -184,7 +184,8 @@ class WelcomeScreen extends StatelessWidget {
                   onPressed: (){
                     String email = "test@gmail.com";
                    // /createUserAccount/:email'
-                    context.pushReplacement('/createUserAccount/$email');
+                   // context.pushReplacement('/createUserAccount/$email');
+                    context.pushReplacement('/createPackage');
                   },
 
                   child: const Text("Login with Google",style: TextStyle(fontSize: 15,color: Colors.black,
