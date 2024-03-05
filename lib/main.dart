@@ -19,6 +19,8 @@ import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platf
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'amplifyconfiguration.dart';
+import 'home_screen.dart';
+import 'order/order_history_screen.dart';
 import 'package/create_package_screen.dart';
 
 final AmplifyLogger _logger = AmplifyLogger('package_delivery');
@@ -130,11 +132,7 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFFffed48)).copyWith(background: Colors.black),
       ),
         routerConfig: _router
-        /*
-      home: loadedAmplify ?
-        // HomeScreen() : const Center(child: CircularProgressIndicator(),),
-         WelcomeScreen() : const Center(child: CircularProgressIndicator(),),
-*/
+
     );
 
   }
@@ -157,8 +155,18 @@ class _MyAppState extends State<MyApp> {
                 CreatePackageScreen();
 
             }),
+
         GoRoute(
-          path: '/',
+            name:'orderHistory',
+            path: '/orderHistory',
+            builder: (BuildContext context, GoRouterState state){
+              return
+                OrderHistoryScreen();
+
+            }),
+        GoRoute(
+          name: "WelcomeScreen",
+          path: '/WelcomeScreen',
 
           builder: (BuildContext context, GoRouterState state) =>
               MultiProvider(
@@ -172,6 +180,24 @@ class _MyAppState extends State<MyApp> {
                   ],
                   child:
                  const WelcomeScreen() ),
+        ),
+
+        GoRoute(
+          path: '/',
+          name:"HomeScreen",
+
+          builder: (BuildContext context, GoRouterState state) =>
+              MultiProvider(
+                  providers: [
+
+                    ChangeNotifierProvider(create: (BuildContext context) => LoginRepository.instance(),),
+                    ChangeNotifierProvider(create: (BuildContext context) => ProfileRepository.instance(),),
+
+
+
+                  ],
+                  child:
+                  HomeScreen() ),
         ),
       ],
 

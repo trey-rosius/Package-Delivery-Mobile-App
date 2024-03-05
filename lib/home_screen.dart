@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_delivery/utils/FABBottomAppBarItem.dart';
 import 'package:package_delivery/utils/icon_text.dart';
 import 'package:package_delivery/utils/step_progress_view.dart';
+
+import 'order/order_history_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -12,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final List<String> deliveryProgress = ['PENDING', "IN TRANSIT", "DELIVERED"];
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final int _curStep = 2;
   int _selectedTabIndex = 0;
 
@@ -33,24 +36,31 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: Colors.black,
+      key: _scaffoldKey,
+      appBar:  PreferredSize(
 
-         body: SingleChildScrollView(
-           child: SafeArea(
-             child: Container(
+
+        preferredSize: const Size(double.infinity,80),
+        child: SafeArea(
+            child:
+            Container(
+                padding: EdgeInsets.only(top: 10,bottom: 10),
+                child:
+                _selectedTabIndex ==0 ?
+                Text('dlveries',style: TextStyle(color: Colors.white,fontSize: 20),) :
+                _selectedTabIndex == 2 ?
+                Text('order history',style: TextStyle(color: Colors.white,fontSize: 20),)  :
+                Text('other screen',style: TextStyle(color: Colors.white,fontSize: 20),)
+            )),
+      ),
+         body: _selectedTabIndex ==0 ?SingleChildScrollView(
+           child:  Container(
              
                child: Column(
                  mainAxisAlignment: MainAxisAlignment.start,
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   Container(
-                     padding: const EdgeInsets.only(top: 30,bottom: 10),
-                     child: Text('dlveries',style: TextStyle(fontFamily: 'SometypeMono',
 
-                         color: Theme.of(context).colorScheme.secondary,
-
-                         letterSpacing: 2,
-                         fontWeight: FontWeight.bold,fontSize: 20),),
-                   ),
                    Row(
                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                      children: [
@@ -377,8 +387,9 @@ class _HomeScreenState extends State<HomeScreen> {
                  ],
                ),
              ),
-           ),
-         ),
+
+         ): _selectedTabIndex ==2 ?
+         OrderHistoryScreen():Container(color: Colors.red,),
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: '',
         color: Colors.grey,
