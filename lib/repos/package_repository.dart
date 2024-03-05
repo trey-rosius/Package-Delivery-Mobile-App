@@ -12,8 +12,22 @@ class PackageRepository extends ChangeNotifier {
 
   String _packageType="Food";
   String _deliveryMode="Standard";
+  String _weight = "1KG";
+  bool _loading = false;
+
+  List<String> _packageWeightList = [
+   "1KG",
+    "1KG-5KG",
+    "5K-10KG"
+  ];
 
 
+  bool get loading => _loading;
+
+  set loading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
 
   List<String> _packageTypeList = [ "Food",
     "Medication",
@@ -22,6 +36,13 @@ class PackageRepository extends ChangeNotifier {
     "Fashion",
     "Beauty",
     "Other"];
+
+  String get weight => _weight;
+
+  set weight(String value) {
+    _weight = value;
+    notifyListeners();
+  }
 
   List<String> _deliveryModeList = [
     "Standard",
@@ -66,6 +87,13 @@ class PackageRepository extends ChangeNotifier {
 
   set deliveryModeList(List<String> value) {
     _deliveryModeList = value;
+    notifyListeners();
+  }
+
+  List<String> get packageWeightList => _packageWeightList;
+
+  set packageWeightList(List<String> value) {
+    _packageWeightList = value;
     notifyListeners();
   }
 }

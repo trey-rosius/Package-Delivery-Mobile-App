@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_delivery/repos/package_repository.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
 import 'package:provider/provider.dart';
@@ -10,17 +12,24 @@ class CreatePackageScreen extends StatefulWidget {
 }
 
 class _CreatePackageScreenState extends State<CreatePackageScreen> {
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return  Scaffold(
+      key: _scaffoldKey,
         appBar:  PreferredSize(
 
 
           preferredSize: const Size(double.infinity,80),
           child: SafeArea(
               child:
-              Container(child:
-              const Text('Create Package',style: TextStyle(color: Colors.white),))),
+              Container(
+                padding: EdgeInsets.only(top: 10,bottom: 10),
+                  child:
+              Text('Create Package',style: TextStyle(color: Theme.of(context).primaryColor),))),
         ),
       body:ChangeNotifierProvider.value(value: PackageRepository.instance(),
       child: Consumer(builder: (_,PackageRepository packageRepo,child){
@@ -30,200 +39,324 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
             child: Column(
               children: [
 
-                Container(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Form(
+                  key: formKey,
+                  autovalidateMode: AutovalidateMode.always,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      const Text("Package Type :",style: TextStyle(color: Colors.white,fontSize: 15),),
-                      DropdownButton<String>(
-                        value: packageRepo.packageType,
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
 
-                        elevation: 16,
-                        style:  TextStyle(color: Colors.white,fontSize: 15),
+                            const Text("Package Type :",style: TextStyle(color: Colors.white,fontSize: 15),),
+                            DropdownButton<String>(
+                              value: packageRepo.packageType,
 
-                        onChanged: (String? value) {
+                              elevation: 16,
+                              style:  TextStyle(color: Colors.white,fontSize: 15),
 
-                          packageRepo.packageType= value!;
+                              onChanged: (String? value) {
 
-                        },
-                        items: packageRepo.packageTypeList.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,style: TextStyle(fontFamily: 'SometypeMono',fontSize: 15),),
-                          );
-                        }).toList(),
-                      )
+                                packageRepo.packageType= value!;
+
+                              },
+                              items: packageRepo.packageTypeList.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,style: TextStyle(fontFamily: 'SometypeMono',fontSize: 15),),
+                                );
+                              }).toList(),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+
+                            const Text("Delivery Mode :",style: TextStyle(color: Colors.white,fontSize: 15),),
+                            DropdownButton<String>(
+                              value: packageRepo.deliveryMode,
+
+                              elevation: 16,
+                              style:  TextStyle(color: Colors.white,fontSize: 15),
+
+                              onChanged: (String? value) {
+
+                                packageRepo.deliveryMode= value!;
+
+                              },
+                              items: packageRepo.deliveryModeList.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,style: TextStyle(fontFamily: 'SometypeMono',fontSize: 15),)
+                                );
+                              }).toList(),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+
+                            const Text("Package Weight :",style: TextStyle(color: Colors.white,fontSize: 15),),
+                            DropdownButton<String>(
+                              value: packageRepo.weight,
+
+                              elevation: 16,
+                              style:  TextStyle(color: Colors.white,fontSize: 15),
+
+                              onChanged: (String? value) {
+
+                                packageRepo.weight= value!;
+
+                              },
+                              items: packageRepo.packageWeightList.map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value,style: TextStyle(fontFamily: 'SometypeMono',fontSize: 15),),
+                                );
+                              }).toList(),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          controller: packageRepo.packageNameController,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            filled: false,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2),
+
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            labelText: 'Package Name',
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintText: "Package Name",
+                            hintStyle: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Package Name';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          controller: packageRepo.packageDescriptionController,
+                          maxLines: 4,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            filled: false,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 1),
+
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            labelText: 'Package Description',
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintText: "Package Description",
+                            hintStyle: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Package Description';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextFormField(
+                          controller: packageRepo.deliveryAddressController,
+                          maxLines: 4,
+                          style: const TextStyle(color: Colors.white),
+                          decoration: InputDecoration(
+                            filled: false,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 1),
+
+                            ),
+                            disabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: (Colors.grey[700])!, width: 1),
+
+                            ),
+                            labelText: 'Package Delivery Address',
+                            labelStyle: const TextStyle(color: Colors.white),
+                            hintText: "Package Delivery Address",
+                            hintStyle: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Package Delivery Address';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+
+                      Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        child: TextButton.icon(onPressed: (){
+
+                        }, icon: Icon(Icons.location_history, color: Theme.of(context).colorScheme.secondary), label: Text("Pick Location",style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),)),
+                      ),
+
                     ],
                   ),
                 ),
+
                 Container(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
+                  margin: const EdgeInsets.only(bottom: 20),
+                  child: Column(
+                    children: <Widget>[
+                      packageRepo.loading
+                          ? Container(
+                        padding: const EdgeInsets.only(top: 30.0),
+                        child: const CircularProgressIndicator(),
+                      )
+                          : Container(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: SizedBox(
+                          width: size.width / 1.1,
+                          height: 50,
+                          child: ElevatedButton(
+                              style: ButtonStyle(
+                                  backgroundColor:
+                                  MaterialStateProperty.all(
+                                      Theme.of(context)
+                                          .colorScheme
+                                          .secondary),
+                                  shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(
+                                              10)))),
+                              onPressed: () {
+                                context.pushReplacement('/');
+                                final FormState form =
+                                formKey.currentState!;
+                                if (!form.validate()) {
+                                } else {
+                                  form.save();
 
-                      const Text("Delivery Mode :",style: TextStyle(color: Colors.white,fontSize: 15),),
-                      DropdownButton<String>(
-                        value: packageRepo.deliveryMode,
 
-                        elevation: 16,
-                        style:  TextStyle(color: Colors.white,fontSize: 15),
 
-                        onChanged: (String? value) {
+                                  /*
+                                              profileRepo
+                                                  .saveUserProfileDetails(
+                                                      widget.email)
+                                                  .then((_) {
+                                                Navigator.push(context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) {
+                                                  return MultiProvider(
+                                                    providers: [
+                                                      ChangeNotifierProvider(create: (BuildContext context) => SharedPrefsUtils.instance(),),
+                                                      ChangeNotifierProvider(
+                                                        create: (_) =>
+                                                            ProfileRepository
+                                                                .instance(),
+                                                      ),
+                                                      ChangeNotifierProvider(
+                                                        create: (_) =>
+                                                            TaskRepository.instance(),
+                                                      ),
+                                                    ],
+                                                    child: HomeScreen(),
+                                                  );
+                                                }));
+                                              });
 
-                          packageRepo.deliveryMode= value!;
-
-                        },
-                        items: packageRepo.deliveryModeList.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value,style: TextStyle(fontFamily: 'SometypeMono',fontSize: 15),)
-                          );
-                        }).toList(),
+                  */
+                                }
+                              },
+                              child: const Text(
+                                'Create Package',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              )),
+                        ),
                       )
                     ],
                   ),
-                ),
-
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    controller: packageRepo.packageNameController,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      filled: false,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                            width: 2),
-
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      labelText: 'Package Name',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      hintText: "Package Name",
-                      hintStyle: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Package Name';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    controller: packageRepo.packageDescriptionController,
-                    maxLines: 4,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      filled: false,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                            width: 1),
-
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      labelText: 'Package Description',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      hintText: "Package Description",
-                      hintStyle: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Package Description';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: TextFormField(
-                    controller: packageRepo.deliveryAddressController,
-                    maxLines: 4,
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      filled: false,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                            width: 1),
-
-                      ),
-                      disabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                            color: (Colors.grey[700])!, width: 1),
-
-                      ),
-                      labelText: 'Package Delivery Address',
-                      labelStyle: const TextStyle(color: Colors.white),
-                      hintText: "Package Delivery Address",
-                      hintStyle: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Package Delivery Address';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
+                )
               ],
             ),
           ),

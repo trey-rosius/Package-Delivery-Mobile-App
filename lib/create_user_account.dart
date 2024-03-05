@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -84,7 +85,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
             padding: const EdgeInsets.all(10.0),
             child: Icon(
               Icons.account_circle,
-              size: 90,
+              size: 70,
               color: Theme.of(context).colorScheme.secondary,
             )),
       );
@@ -253,32 +254,24 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                             filled: false,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
-                                  width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  width: 1),
+                             
                             ),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             labelText: 'phone number',
 
@@ -307,32 +300,24 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                             filled: false,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
-                                  width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  width: 1),
+                             
                             ),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             labelText: 'First Name',
                             labelStyle: const TextStyle(color: Colors.white),
@@ -360,32 +345,24 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                             filled: false,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
-                                  width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  width: 1),
+                             
                             ),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             labelText: 'Last Name',
                             labelStyle: const TextStyle(color: Colors.white),
@@ -414,32 +391,24 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                             filled: false,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
                                   color: Theme.of(context).primaryColor,
-                                  width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  width: 1),
+                             
                             ),
                             disabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                  color: (Colors.grey[700])!, width: 2),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(10),
-                              ),
+                                  color: (Colors.grey[700])!, width: 1),
+                             
                             ),
                             labelText: "Address",
                             labelStyle: const TextStyle(color: Colors.white),
@@ -488,6 +457,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                                                     BorderRadius.circular(
                                                         10)))),
                                     onPressed: () {
+                                      context.pushReplacement('/createPackage');
                                       final FormState form =
                                           formKey.currentState!;
                                       if (!form.validate()) {
