@@ -4,6 +4,7 @@ import 'package:package_delivery/utils/FABBottomAppBarItem.dart';
 import 'package:package_delivery/utils/icon_text.dart';
 import 'package:package_delivery/utils/step_progress_view.dart';
 
+import 'order/line_chart.dart';
 import 'order/order_history_screen.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -389,7 +390,7 @@ class _HomeScreenState extends State<HomeScreen> {
              ),
 
          ): _selectedTabIndex ==2 ?
-         OrderHistoryScreen():Container(color: Colors.red,),
+         OrderHistoryScreen():LineChartSample2(),
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: '',
         color: Colors.grey,

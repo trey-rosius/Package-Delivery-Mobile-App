@@ -285,7 +285,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'username';
+                              return 'phone number';
                             }
                             return null;
                           },
