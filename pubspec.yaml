@@ -53,6 +53,7 @@ dependencies:
   geolocator: any
   flutter_polyline_points: any
   google_maps_flutter: any
+  shared_preferences: ^2.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

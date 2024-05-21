@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:package_delivery/create_user_account.dart';
 import 'package:package_delivery/repos/login_respository.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
+import 'package:package_delivery/utils/shared_preferences.dart';
 import 'package:package_delivery/welcome_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,7 @@ import 'package:google_maps_flutter_platform_interface/google_maps_flutter_platf
 
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'amplifyconfiguration.dart';
 import 'home_screen.dart';
 import 'order/order_history_screen.dart';
@@ -140,10 +142,14 @@ class _MyAppState extends State<MyApp> {
       routes:[
         GoRoute(
           name:'createUserAccount',
-            path: '/createUserAccount/:email',
+            path: '/createUserAccount',
         builder: (BuildContext context, GoRouterState state){
-          return ChangeNotifierProvider(create: (context) => ProfileRepository.instance(),
-          child: CreateUserAccountScreen(email:state.pathParameters['email']!),);
+          return MultiProvider(providers: [
+              ChangeNotifierProvider(create: (context) => ProfileRepository.instance()),
+              ChangeNotifierProvider(create: (context) => SharedPrefsUtils.instance()),
+          ],
+          child: CreateUserAccountScreen(),);
+
 
         }),
 

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,8 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 
 import 'package:aws_common/vm.dart';
+
+import '../models/User.dart';
 
 
 
@@ -21,7 +24,8 @@ class ProfileRepository extends ChangeNotifier {
   final phoneNumberController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-
+  final usernameController = TextEditingController();
+  final aboutController = TextEditingController();
 
 
 
@@ -177,6 +181,184 @@ class ProfileRepository extends ChangeNotifier {
     }
   }
 
+  Future<void> saveUserDetails(String email) async {
+    loading = true;
+
+    try {
+      String graphQLDocument = '''
+    mutation createUserAccount(\$username:String!,\$firstName:String!,\$lastName:String!,
+    \$email:AWSEmail!,\$userType:USERTYPE!,\$profilePicUrl:String!,\$about:String!,\$profilePicKey:String!) {
+  createUserAccount(
+    userInput: {
+      username: \$username
+      firstName: \$firstName
+      lastName: \$lastName
+      email: \$email
+      about:\$about
+      userType: \$userType
+      profilePicKey:\$profilePicKey
+      profilePicUrl: \$profilePicUrl
+    }
+  ) {
+    createdOn
+    email
+    firstName
+    id
+    about
+    lastName
+    profilePicKey
+    profilePicUrl
+    updatedOn
+    userType
+    username
+  }
+}
+
+    
+    ''';
+
+      var operation = Amplify.API.mutate(
+          request: GraphQLRequest<String>(
+            document: graphQLDocument,
+            apiName: "cdk-rust-social-api_AMAZON_COGNITO_USER_POOLS",
+            variables: {
+              "username": usernameController.text,
+              "firstName": firstNameController.text,
+              "lastName": lastNameController.text,
+              "about": aboutController.text,
+              "email": email,
+              "userType": "ADMIN",
+              "profilePicUrl": profilePic,
+              "profilePicKey": profilePicKey
+            },
+          ));
+
+      var response = await operation.response;
+      if (kDebugMode) {
+        print("response operation $response");
+      }
+      if (response.data != null) {
+        final responseJson = json.decode(response.data!);
+        if (kDebugMode) {
+          print("here${responseJson['createUserAccount']}");
+        }
+        loading = false;
+      } else {
+        if (kDebugMode) {
+          print("something happened");
+        }
+        loading = false;
+      }
+    } catch (ex) {
+      if (kDebugMode) {
+        print(ex.toString());
+      }
+      loading = false;
+    }
+  }
+
+  Future<User> getUserAccountById(String id) async {
+    loading = true;
+
+
+      String graphQLDocument = '''
+    
+      query getUserAccount(\$id:String!) {
+  getUserAccount(id:\$id ) {
+  about
+  createdOn
+  email
+  firstName
+  id
+  lastName
+  profilePicUrl
+  profilePicKey
+   userType
+    username
+  updatedOn
+  }
+}
+    ''';
+
+      var operation = Amplify.API.query(
+          request: GraphQLRequest<String>(
+            document: graphQLDocument,
+            apiName: "cdk-rust-social-api_AMAZON_COGNITO_USER_POOLS",
+            variables: {
+              "id": id,
+            },
+          ));
+
+      var response = await operation.response;
+
+      final responseJson = json.decode(response.data!);
+
+      loading = false;
+
+      print("returning ${responseJson['getUserAccount']}");
+
+      User userModel = User.fromJson(responseJson['getUserAccount']);
+      if (kDebugMode) {
+        print("returning ${userModel.email}");
+      }
+
+      return userModel;
+
+  }
+
+
+  Future<User?> getUserAccountByEmail(String email) async {
+    loading = true;
+
+    String graphQLDocument = '''
+    
+      query getUserAccount(\$id:String!) {
+  getUserAccount(id:\$id ) {
+  about
+  createdOn
+  email
+  firstName
+  id
+  lastName
+  profilePicUrl
+  profilePicKey
+   userType
+    username
+  updatedOn
+  }
+}
+    ''';
+
+    var operation = Amplify.API.query(
+        request: GraphQLRequest<String>(
+          document: graphQLDocument,
+          apiName: "cdk-rust-social-api_AMAZON_COGNITO_USER_POOLS",
+          variables: {
+            "email": email,
+          },
+        ));
+
+    var response = await operation.response;
+
+    final responseJson = json.decode(response.data!);
+
+    loading = false;
+
+    print("returning ${responseJson['getUserByEmail']}");
+
+    if(responseJson['getUserByEmail'] == null){
+      return null;
+    }else {
+      User userModel = User.fromJson(responseJson['getUserByEmail']);
+      if (kDebugMode) {
+        print("returning ${userModel.email}");
+      }
+
+
+
+      return userModel;
+    }
+  }
 
   Future<AuthUser>retrieveCurrentUser() async{
     AuthUser authUser = await Amplify.Auth.getCurrentUser();

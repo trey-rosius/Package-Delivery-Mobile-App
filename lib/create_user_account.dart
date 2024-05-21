@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 
 
 class CreateUserAccountScreen extends StatefulWidget {
-  const CreateUserAccountScreen({super.key, required this.email});
-  final String email;
+  const CreateUserAccountScreen({super.key});
+
 
   @override
   _CreateUserAccountScreenState createState() =>

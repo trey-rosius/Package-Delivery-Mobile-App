@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:package_delivery/repos/login_respository.dart';
+import 'package:package_delivery/repos/profile_repository.dart';
+import 'package:provider/provider.dart';
+
+import 'models/User.dart';
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    LoginRepository loginRepo = context.watch<LoginRepository>();
+    ProfileRepository profileRepo = context.watch<ProfileRepository>();
     return Scaffold(
 
       body: Stack(
@@ -174,7 +181,7 @@ class WelcomeScreen extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 100),
             child: Align(
               alignment: Alignment.bottomCenter,
-              child: SizedBox(
+              child:loginRepo.googleLoading ? CircularProgressIndicator() : SizedBox(
                 height: size.height/14,
                 width: size.width/1.5,
                 child: ElevatedButton(
@@ -182,9 +189,22 @@ class WelcomeScreen extends StatelessWidget {
                       backgroundColor: MaterialStateProperty.all(Theme.of(context).colorScheme.secondary)
                   ),
                   onPressed: (){
-                    String email = "test@gmail.com";
-                   // /createUserAccount/:email'
-                    context.pushReplacement('/createUserAccount/$email');
+
+                    loginRepo.googleSignIn(context).then((User? user) {
+                      if(user != null){
+
+                        print("user found, move to homescreen");
+                        //find out if user is old or new
+
+                        context.pushReplacement('/');
+                      }else{
+                        print("user not found, create new user");
+
+                        context.pushReplacement('/createUserAccount');
+                      }
+                    });
+
+
 
                   },
 

@@ -10,6 +10,11 @@
       "StackName": "amplify-packagedelivery-dev-162258",
       "StackId": "arn:aws:cloudformation:us-east-2:132260253285:stack/amplify-packagedelivery-dev-162258/3c9a3be0-6913-11ee-b8f4-0a43c4c09fd3",
       "AmplifyAppId": "db1ijzvlzijv1"
+    },
+    "categories": {
+      "auth": {
+        "packagedelivery4af4f410": {}
+      }
     }
   }
 }

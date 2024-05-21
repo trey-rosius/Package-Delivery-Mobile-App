@@ -2,7 +2,11 @@
 
 
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../models/User.dart';
+import '../utils/shared_preferences.dart';
 
 
 
@@ -105,61 +109,73 @@ class LoginRepository extends ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void>googleSignIn(BuildContext context) async{
+  Future<User?> googleSignIn(BuildContext context) async {
     googleLoading = true;
     try {
-     var res = await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
-
-
+      var res =
+      await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
 
       isSignedIn = res.isSignedIn;
-      if(isSignedIn){
+      if (isSignedIn) {
+        return fetchCurrentUserAttributes()
+            .then((List<AuthUserAttribute> listUserAttributes) async {
 
 
-        googleLoading = false;
-        return fetchCurrentUserAttributes().then((List<AuthUserAttribute> listUserAttributes) {
-          String userSub = listUserAttributes[0].value;
-          String email = listUserAttributes[1].value;
+          User? user;
 
+          for (var item in listUserAttributes) {
+            if (item.userAttributeKey.key == 'email') {
+            //  user = await getUserAccountByEmail(item.value);
+              //save email to shared preferences
 
-
-          for(var item in listUserAttributes){
-            if(item.userAttributeKey.key =='email'){
-              print("list user attributes are ${item.value}");
-            /*
-              SharedPrefsUtils.instance().saveUserEmail(item.value).then((value) {
-                print("email address saved");
+              await SharedPrefsUtils.instance()
+                  .saveUserEmail(item.value)
+                  .then((value) {
+                if (kDebugMode) {
+                  print("email address saved");
+                }
+                googleLoading = false;
+                return item.value;
               });
+/*
+              if (user != null) {
+                print("user id is ${user.id}");
+                await SharedPrefsUtils.instance()
+                    .saveUserId(user.id);
+                await SharedPrefsUtils.instance()
+                    .saveUserEmail(user.email);
+                googleLoading = false;
+                return user;
+              } else {
 
-              context.pushReplacement('users/${item.value}');
-*/
-
-
+                await SharedPrefsUtils.instance()
+                    .saveUserEmail(item.value)
+                    .then((value) {
+                  if (kDebugMode) {
+                    print("email address saved");
+                  }
+                  googleLoading = false;
+                  return item.value;
+                });
+                return user;
+              }
+              */
             }
-
-
-
           }
-
-
-
+          return user;
         });
-
-
-
-
-      }else{
-
+      } else {
         googleLoading = false;
+        return null;
+      }
+    } on AmplifyException catch (e) {
+      if (kDebugMode) {
+        print(e.message);
       }
 
-    } on AmplifyException catch (e) {
-      print(e.message);
       googleLoading = false;
+      return null;
     }
-
-
-
   }
 
   Future<void> signOutCurrentUser() async {
