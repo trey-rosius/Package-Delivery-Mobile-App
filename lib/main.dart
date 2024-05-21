@@ -197,7 +197,8 @@ class _MyAppState extends State<MyApp> {
 
                   ],
                   child:
-                  HomeScreen() ),
+                  WelcomeScreen() ),
+                 // HomeScreen() ),
         ),
       ],
 

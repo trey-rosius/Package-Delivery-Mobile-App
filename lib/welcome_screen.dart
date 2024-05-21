@@ -80,7 +80,35 @@ class WelcomeScreen extends StatelessWidget {
               ],
             ),
           ),
-
+          Align(
+            alignment: Alignment.center,
+            child: Stack(
+              children: [
+                Container(
+                  width: size.width/2.8,
+                  height:size.height/2.8,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: Theme.of(context).colorScheme.secondary,width: 2),
+                    //color: Colors.grey[800], // Adjust grey tone for the base
+                  ),
+                ),
+                /*
+              Positioned(
+                top: 75,
+                child: ClipOval(
+                  child: Image.network(
+                    // Replace with a placeholder image URL or fetch random images
+                    'https://plus.unsplash.com/premium_photo-1682090260563-191f8160ca48?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                    fit: BoxFit.cover,
+                    height: 40,
+                    width: 40,
+                  ),
+                ),),
+*/
+              ],
+            ),
+          ),
           Align(
             alignment: Alignment.center,
             child: Stack(
@@ -118,35 +146,7 @@ class WelcomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.center,
-            child: Stack(
-              children: [
-                Container(
-                  width: size.width/2.8,
-                  height:size.height/2.8,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Theme.of(context).colorScheme.secondary,width: 2),
-                    //color: Colors.grey[800], // Adjust grey tone for the base
-                  ),
-                ),
-                /*
-              Positioned(
-                top: 75,
-                child: ClipOval(
-                  child: Image.network(
-                    // Replace with a placeholder image URL or fetch random images
-                    'https://plus.unsplash.com/premium_photo-1682090260563-191f8160ca48?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                    fit: BoxFit.cover,
-                    height: 40,
-                    width: 40,
-                  ),
-                ),),
-*/
-              ],
-            ),
-          ),
+
 
           Align(
             alignment: Alignment.center,
