@@ -25,7 +25,7 @@ class ProfileRepository extends ChangeNotifier {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
   final usernameController = TextEditingController();
-  final aboutController = TextEditingController();
+
 
 
 
@@ -60,7 +60,7 @@ class ProfileRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _profilePic = "";
+  String _profilePicUrl = "";
   String _profilePicKey ="";
 
 
@@ -71,13 +71,13 @@ class ProfileRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get profilePic => _profilePic;
 
-  set profilePic(String value) {
-    _profilePic = value;
+  String get profilePicUrl => _profilePicUrl;
+
+  set profilePicUrl(String value) {
+    _profilePicUrl = value;
     notifyListeners();
   }
-
 
   bool get loading => _loading;
 
@@ -155,7 +155,7 @@ class ProfileRepository extends ChangeNotifier {
       if (kDebugMode) {
         print(resultDownload);
       }
-      profilePic = resultDownload;
+      profilePicUrl = resultDownload;
       loading = false;
       if (kDebugMode) {
         print("the key is $profilePicKey");
@@ -181,36 +181,54 @@ class ProfileRepository extends ChangeNotifier {
     }
   }
 
-  Future<void> saveUserDetails(String email) async {
+  Future<void> saveUserDetails(String email,String city, String country, String street,
+      double latitude,double longitude,String userType, ) async {
     loading = true;
 
     try {
       String graphQLDocument = '''
-    mutation createUserAccount(\$username:String!,\$firstName:String!,\$lastName:String!,
-    \$email:AWSEmail!,\$userType:USERTYPE!,\$profilePicUrl:String!,\$about:String!,\$profilePicKey:String!) {
+    mutation createUserAccount(\$username:String!,\$first_name:String!,\$last_name:String!,
+    \$email:AWSEmail!,\$user_type:USERTYPE!,\$profile_pic_url:String!,
+    \$profile_pic_url:String!,\$phone_number:AWSPhone,\$is_active:Boolean!,
+    \$is_admin:Boolean!,\$geolocation:GeolocationInput!,\$address: AddressInput!) {
   createUserAccount(
     userInput: {
       username: \$username
-      firstName: \$firstName
-      lastName: \$lastName
+      first_name: \$firstName
+      last_name: \$lastName
       email: \$email
-      about:\$about
-      userType: \$userType
-      profilePicKey:\$profilePicKey
-      profilePicUrl: \$profilePicUrl
+      is_admin:\$is_admin
+      is_active:\$is_active
+      phone_number:\$phone_number
+      geolocation:\$geolocation
+      address:\$address
+      user_type: \$userType
+      profile_pic_url:\$profilePicKey
+    
     }
   ) {
-    createdOn
+    created_at
     email
-    firstName
+    first_name
     id
-    about
-    lastName
-    profilePicKey
-    profilePicUrl
-    updatedOn
-    userType
+    is_active
+    is_admin
+    geolocation {
+      latitude
+      longitude
+    }
+    last_name
+    phone_number
+    profile_pic_url
+    updated_at
+    user_type
     username
+    address {
+      city
+      country
+      street
+      zip
+    }
   }
 }
 
@@ -223,13 +241,20 @@ class ProfileRepository extends ChangeNotifier {
             apiName: "cdk-rust-social-api_AMAZON_COGNITO_USER_POOLS",
             variables: {
               "username": usernameController.text,
-              "firstName": firstNameController.text,
-              "lastName": lastNameController.text,
-              "about": aboutController.text,
+              "first_name": firstNameController.text,
+              "last_name": lastNameController.text,
+              "phone_number":phoneNumberController.text,
+              "address":{
+                "city": city,
+                "country": country,
+                "street": street,
+                "zip": 237
+              },
+              "geolocation": { "latitude": latitude, "longitude": longitude},
               "email": email,
-              "userType": "ADMIN",
-              "profilePicUrl": profilePic,
-              "profilePicKey": profilePicKey
+              "user_type": userType,
+              "profile_pic_url": profilePicUrl,
+
             },
           ));
 
@@ -257,35 +282,45 @@ class ProfileRepository extends ChangeNotifier {
     }
   }
 
-  Future<User> getUserAccountById(String id) async {
+  Future<User> getUserAccountById(String userId) async {
     loading = true;
 
 
       String graphQLDocument = '''
     
-      query getUserAccount(\$id:String!) {
-  getUserAccount(id:\$id ) {
-  about
-  createdOn
-  email
-  firstName
-  id
-  lastName
-  profilePicUrl
-  profilePicKey
-   userType
+      query getUserAccount(\$userId:String!) {
+  getUserAccount(userId:\$userId ) {
+    address {
+      city
+      country
+      street
+      zip
+    }
+    created_at
+    email
+    first_name
+    geolocation {
+      latitude
+      longitude
+    }
+    id
+    is_active
+    is_admin
+    last_name
+    phone_number
+    profile_pic_url
+    updated_at
+    user_type
     username
-  updatedOn
-  }
 }
     ''';
 
       var operation = Amplify.API.query(
           request: GraphQLRequest<String>(
             document: graphQLDocument,
-            apiName: "cdk-rust-social-api_AMAZON_COGNITO_USER_POOLS",
+            apiName: "packageDeliveryMicroserviceAPI_API_KEY",
             variables: {
-              "id": id,
+              "userId": userId,
             },
           ));
 

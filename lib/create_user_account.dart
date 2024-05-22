@@ -191,7 +191,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                           _onImageButtonPressed(
                               ImageSource.gallery, context, profileRepo);
                         },
-                        child: profileRepo.profilePic.isEmpty
+                        child: profileRepo.profilePicUrl.isEmpty
                             ? Column(
                                 children: [
                                   _previewImage(profileRepo, context),
@@ -215,7 +215,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                                               width: 70.0,
                                               height: 70.0,
                                               fit: BoxFit.cover,
-                                              imageUrl: profileRepo.profilePic,
+                                              imageUrl: profileRepo.profilePicUrl??"",
                                               placeholder: (context, url) =>
                                                   const CircularProgressIndicator(),
                                               errorWidget: (context, url, ex) =>
@@ -465,7 +465,7 @@ class _CreateUserAccountScreenState extends State<CreateUserAccountScreen> {
                                         form.save();
 
                                         if (kDebugMode) {
-                                          print(profileRepo.profilePic);
+                                          print(profileRepo.profilePicUrl);
                                         }
 /*
                                         profileRepo
