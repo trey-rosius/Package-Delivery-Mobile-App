@@ -8,6 +8,7 @@ import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_delivery/create_user_account.dart';
 import 'package:package_delivery/repos/login_respository.dart';
+import 'package:package_delivery/repos/package_repository.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
 import 'package:package_delivery/utils/shared_preferences.dart';
 import 'package:package_delivery/welcome_screen.dart';
@@ -170,8 +171,13 @@ class _MyAppState extends State<MyApp> {
             name:'createPackage',
             path: '/createPackage',
             builder: (BuildContext context, GoRouterState state){
-              return
-                CreatePackageScreen();
+              return MultiProvider(providers: [
+                  ChangeNotifierProvider(create: (context) => ProfileRepository.instance()),
+                  ChangeNotifierProvider(create: (context) => PackageRepository.instance()),
+              ChangeNotifierProvider(create: (context) => SharedPrefsUtils.instance()),
+              ],
+              child: const CreatePackageScreen());
+
 
             }),
 
@@ -211,12 +217,13 @@ class _MyAppState extends State<MyApp> {
 
                     ChangeNotifierProvider(create: (BuildContext context) => LoginRepository.instance(),),
                     ChangeNotifierProvider(create: (BuildContext context) => ProfileRepository.instance(),),
+                    ChangeNotifierProvider(create: (BuildContext context) => SharedPrefsUtils.instance(),),
 
 
 
                   ],
                   child:
-                  WelcomeScreen() ),
+                  const CreatePackageScreen() ),
                  // HomeScreen() ),
         ),
       ],

@@ -19,16 +19,18 @@
 
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
+import 'package:package_delivery/models/DELIVERY_AGENT_STATUS.dart';
+import 'package:package_delivery/models/USERTYPE.dart';
+
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
-
-import 'USERTYPE.dart';
 
 
 /** This is an auto generated class representing the User type in your schema. */
 class User {
   final Address? _address;
   final amplify_core.TemporalTimestamp? _created_at;
+  final DELIVERY_AGENT_STATUS? _delivery_agent_status;
   final String? _email;
   final String? _first_name;
   final Geolocation? _geolocation;
@@ -57,6 +59,10 @@ class User {
   
   amplify_core.TemporalTimestamp? get created_at {
     return _created_at;
+  }
+
+  DELIVERY_AGENT_STATUS? get delivery_agent_status {
+    return _delivery_agent_status;
   }
   
   String get email {
@@ -193,12 +199,13 @@ class User {
     }
   }
   
-  const User._internal({required address, created_at, required email, required first_name, required geolocation, required this.id, required is_active, required is_admin, required last_name, required phone_number, required profile_pic_url, updated_at, required user_type, required username}): _address = address, _created_at = created_at, _email = email, _first_name = first_name, _geolocation = geolocation, _is_active = is_active, _is_admin = is_admin, _last_name = last_name, _phone_number = phone_number, _profile_pic_url = profile_pic_url, _updated_at = updated_at, _user_type = user_type, _username = username;
+  const User._internal({required address, created_at, delivery_agent_status, required email, required first_name, required geolocation, required this.id, required is_active, required is_admin, required last_name, required phone_number, required profile_pic_url, updated_at, required user_type, required username}): _address = address, _created_at = created_at, _delivery_agent_status = delivery_agent_status, _email = email, _first_name = first_name, _geolocation = geolocation, _is_active = is_active, _is_admin = is_admin, _last_name = last_name, _phone_number = phone_number, _profile_pic_url = profile_pic_url, _updated_at = updated_at, _user_type = user_type, _username = username;
   
-  factory User({required Address address, amplify_core.TemporalTimestamp? created_at, required String email, required String first_name, required Geolocation geolocation, String? id, required bool is_active, required bool is_admin, required String last_name, required String phone_number, required String profile_pic_url, amplify_core.TemporalTimestamp? updated_at, required USERTYPE user_type, required String username}) {
+  factory User({required Address address, amplify_core.TemporalTimestamp? created_at, DELIVERY_AGENT_STATUS? delivery_agent_status, required String email, required String first_name, required Geolocation geolocation, String? id, required bool is_active, required bool is_admin, required String last_name, required String phone_number, required String profile_pic_url, amplify_core.TemporalTimestamp? updated_at, required USERTYPE user_type, required String username}) {
     return User._internal(
       address: address,
       created_at: created_at,
+      delivery_agent_status: delivery_agent_status,
       email: email,
       first_name: first_name,
       geolocation: geolocation,
@@ -223,6 +230,7 @@ class User {
     return other is User &&
       _address == other._address &&
       _created_at == other._created_at &&
+      _delivery_agent_status == other._delivery_agent_status &&
       _email == other._email &&
       _first_name == other._first_name &&
       _geolocation == other._geolocation &&
@@ -247,6 +255,7 @@ class User {
     buffer.write("User {");
     buffer.write("address=" + (_address != null ? _address!.toString() : "null") + ", ");
     buffer.write("created_at=" + (_created_at != null ? _created_at!.toString() : "null") + ", ");
+    buffer.write("delivery_agent_status=" + (_delivery_agent_status != null ? amplify_core.enumToString(_delivery_agent_status)! : "null") + ", ");
     buffer.write("email=" + "$_email" + ", ");
     buffer.write("first_name=" + "$_first_name" + ", ");
     buffer.write("geolocation=" + (_geolocation != null ? _geolocation!.toString() : "null") + ", ");
@@ -264,10 +273,11 @@ class User {
     return buffer.toString();
   }
   
-  User copyWith({Address? address, amplify_core.TemporalTimestamp? created_at, String? email, String? first_name, Geolocation? geolocation, String? id, bool? is_active, bool? is_admin, String? last_name, String? phone_number, String? profile_pic_url, amplify_core.TemporalTimestamp? updated_at, USERTYPE? user_type, String? username}) {
+  User copyWith({Address? address, amplify_core.TemporalTimestamp? created_at, DELIVERY_AGENT_STATUS? delivery_agent_status, String? email, String? first_name, Geolocation? geolocation, String? id, bool? is_active, bool? is_admin, String? last_name, String? phone_number, String? profile_pic_url, amplify_core.TemporalTimestamp? updated_at, USERTYPE? user_type, String? username}) {
     return User._internal(
       address: address ?? this.address,
       created_at: created_at ?? this.created_at,
+      delivery_agent_status: delivery_agent_status ?? this.delivery_agent_status,
       email: email ?? this.email,
       first_name: first_name ?? this.first_name,
       geolocation: geolocation ?? this.geolocation,
@@ -285,6 +295,7 @@ class User {
   User copyWithModelFieldValues({
     ModelFieldValue<Address>? address,
     ModelFieldValue<amplify_core.TemporalTimestamp?>? created_at,
+    ModelFieldValue<DELIVERY_AGENT_STATUS?>? delivery_agent_status,
     ModelFieldValue<String>? email,
     ModelFieldValue<String>? first_name,
     ModelFieldValue<Geolocation>? geolocation,
@@ -301,6 +312,7 @@ class User {
     return User._internal(
       address: address == null ? this.address : address.value,
       created_at: created_at == null ? this.created_at : created_at.value,
+      delivery_agent_status: delivery_agent_status == null ? this.delivery_agent_status : delivery_agent_status.value,
       email: email == null ? this.email : email.value,
       first_name: first_name == null ? this.first_name : first_name.value,
       geolocation: geolocation == null ? this.geolocation : geolocation.value,
@@ -321,6 +333,7 @@ class User {
         ? Address.fromJson(new Map<String, dynamic>.from(json['address']))
         : null,
       _created_at = json['created_at'] != null ? amplify_core.TemporalTimestamp.fromSeconds(json['created_at']) : null,
+      _delivery_agent_status = amplify_core.enumFromString<DELIVERY_AGENT_STATUS>(json['delivery_agent_status'], DELIVERY_AGENT_STATUS.values),
       _email = json['email'],
       _first_name = json['first_name'],
       _geolocation = json['geolocation'] != null
@@ -337,12 +350,13 @@ class User {
       _username = json['username'];
   
   Map<String, dynamic> toJson() => {
-    'address': _address?.toJson(), 'created_at': _created_at?.toSeconds(), 'email': _email, 'first_name': _first_name, 'geolocation': _geolocation?.toJson(), 'id': id, 'is_active': _is_active, 'is_admin': _is_admin, 'last_name': _last_name, 'phone_number': _phone_number, 'profile_pic_url': _profile_pic_url, 'updated_at': _updated_at?.toSeconds(), 'user_type': amplify_core.enumToString(_user_type), 'username': _username
+    'address': _address?.toJson(), 'created_at': _created_at?.toSeconds(), 'delivery_agent_status': amplify_core.enumToString(_delivery_agent_status), 'email': _email, 'first_name': _first_name, 'geolocation': _geolocation?.toJson(), 'id': id, 'is_active': _is_active, 'is_admin': _is_admin, 'last_name': _last_name, 'phone_number': _phone_number, 'profile_pic_url': _profile_pic_url, 'updated_at': _updated_at?.toSeconds(), 'user_type': amplify_core.enumToString(_user_type), 'username': _username
   };
   
   Map<String, Object?> toMap() => {
     'address': _address,
     'created_at': _created_at,
+    'delivery_agent_status': _delivery_agent_status,
     'email': _email,
     'first_name': _first_name,
     'geolocation': _geolocation,
@@ -371,6 +385,12 @@ class User {
       fieldName: 'created_at',
       isRequired: false,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.timestamp)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.customTypeField(
+      fieldName: 'delivery_agent_status',
+      isRequired: false,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.customTypeField(

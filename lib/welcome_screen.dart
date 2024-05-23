@@ -51,9 +51,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
     _position =  await Geolocator.getCurrentPosition();
-    setState(() {
 
-    });
 
 
     print("latitude is ${_position!.latitude}");
@@ -254,7 +252,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         print("user found, move to homescreen");
                         //find out if user is old or new
                         context.pushReplacement('/createUserAccount');
-                        //context.pushReplacement('/');
+
                       }else{
                         print("user not found, create new user");
 

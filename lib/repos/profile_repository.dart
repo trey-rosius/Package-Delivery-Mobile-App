@@ -30,8 +30,16 @@ class ProfileRepository extends ChangeNotifier {
 
 
 
+double _longitude=0.0;
+   double _latitude=0.0;
 
 
+  double get longitude => _longitude;
+
+  set longitude(double value) {
+    _longitude = value;
+    notifyListeners();
+  }
 
   bool _loading = false;
   String _userId='';
@@ -185,8 +193,7 @@ class ProfileRepository extends ChangeNotifier {
     }
   }
 
-  Future<void> saveUserDetails(String email,String city, String country, String street,
-      double latitude,double longitude,String userType) async {
+  Future<void> saveUserProfileDetails(String email,String userType) async {
     loading = true;
 
     try {
@@ -194,20 +201,22 @@ class ProfileRepository extends ChangeNotifier {
     mutation createUserAccount(\$username:String!,\$first_name:String!,\$last_name:String!,
     \$email:AWSEmail!,\$user_type:USERTYPE!,\$profile_pic_url:String!,
     \$profile_pic_url:String!,\$phone_number:AWSPhone,\$is_active:Boolean!,
+     \$delivery_agent_status: DELIVERY_AGENT_STATUS
     \$is_admin:Boolean!,\$geolocation:GeolocationInput!,\$address: AddressInput!) {
   createUserAccount(
     userInput: {
       username: \$username
-      first_name: \$firstName
-      last_name: \$lastName
+      first_name: \$first_name
+      last_name: \$last_name
       email: \$email
       is_admin:\$is_admin
+      delivery_agent_status: \$delivery_agent_status
       is_active:\$is_active
       phone_number:\$phone_number
       geolocation:\$geolocation
       address:\$address
-      user_type: \$userType
-      profile_pic_url:\$profilePicKey
+      user_type: \$user_type
+      profile_pic_url:\$profile_pic_url
     
     }
   ) {
@@ -216,6 +225,7 @@ class ProfileRepository extends ChangeNotifier {
     first_name
     id
     is_active
+    delivery_agent_status
     is_admin
     geolocation {
       latitude
@@ -242,18 +252,21 @@ class ProfileRepository extends ChangeNotifier {
       var operation = Amplify.API.mutate(
           request: GraphQLRequest<String>(
             document: graphQLDocument,
-            apiName: "cdk-rust-social-api_AMAZON_COGNITO_USER_POOLS",
+            apiName: "packageDeliveryMicroserviceAPI-API-KEY",
             variables: {
               "username": usernameController.text,
               "first_name": firstNameController.text,
               "last_name": lastNameController.text,
-              "phone_number":phoneNumberController.text,
+              "is_active": true,
+              "is_admin": false,
+              "phone_number":"+237${phoneNumberController.text}",
               "address":{
-                "city": city,
-                "country": country,
-                "street": street,
+                "city": cityController.text,
+                "country": countryController.text,
+                "street": streetController.text,
                 "zip": 237
               },
+              "delivery_agent_status":"FREE",
               "geolocation": { "latitude": latitude, "longitude": longitude},
               "email": email,
               "user_type": userType,
@@ -408,6 +421,13 @@ class ProfileRepository extends ChangeNotifier {
 
   set phoneNumber(int value) {
     _phoneNumber = value;
+    notifyListeners();
+  }
+
+ double get latitude => _latitude;
+
+  set latitude(double value) {
+    _latitude = value;
     notifyListeners();
   }
 }
