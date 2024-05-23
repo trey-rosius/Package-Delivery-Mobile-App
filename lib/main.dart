@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_delivery/create_user_account.dart';
 import 'package:package_delivery/repos/login_respository.dart';
@@ -60,6 +62,17 @@ class _MyAppState extends State<MyApp> {
 
 
         AmplifyAPI(),
+        AmplifyAuthCognito(
+          // FIXME: In your app, make sure to remove this line and set up
+          /// Keychain Sharing in Xcode as described in the docs:
+          /// https://docs.amplify.aws/lib/project-setup/platform-setup/q/platform/flutter/#enable-keychain
+          secureStorageFactory: AmplifySecureStorage.factoryFrom(
+            macOSOptions:
+            // ignore: invalid_use_of_visible_for_testing_member
+            MacOSSecureStorageOptions(useDataProtection: false),
+          ),
+        ),
+        AmplifyStorageS3(),
 
       ]);
 

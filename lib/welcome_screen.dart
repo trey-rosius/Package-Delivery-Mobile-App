@@ -253,8 +253,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
                         print("user found, move to homescreen");
                         //find out if user is old or new
-
-                        context.pushReplacement('/');
+                        context.pushReplacement('/createUserAccount');
+                        //context.pushReplacement('/');
                       }else{
                         print("user not found, create new user");
 

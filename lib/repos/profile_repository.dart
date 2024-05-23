@@ -19,8 +19,10 @@ class ProfileRepository extends ChangeNotifier {
   ProfileRepository.instance();
 
 
+  final cityController = TextEditingController();
+  final streetController = TextEditingController();
+  final countryController = TextEditingController();
 
-  final addressController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
@@ -105,7 +107,9 @@ class ProfileRepository extends ChangeNotifier {
     // TODO: implement dispose
 
     phoneNumberController.dispose();
-    addressController.dispose();
+    cityController.dispose();
+    streetController.dispose();
+    countryController.dispose();
     firstNameController.dispose();
     lastNameController.dispose();
 
@@ -182,7 +186,7 @@ class ProfileRepository extends ChangeNotifier {
   }
 
   Future<void> saveUserDetails(String email,String city, String country, String street,
-      double latitude,double longitude,String userType, ) async {
+      double latitude,double longitude,String userType) async {
     loading = true;
 
     try {

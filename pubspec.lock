@@ -34,7 +34,7 @@ packages:
     source: hosted
     version: "0.3.4"
   amplify_auth_cognito:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: amplify_auth_cognito
       sha256: "567662870e4332b8189c7b0dc353c5d9a26cc94a6de0d9649c134c14022c6653"

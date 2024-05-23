@@ -39,6 +39,7 @@ dependencies:
   amplify_flutter: any
   uuid: any
   amplify_storage_s3: any
+  amplify_auth_cognito: ^1.6.1
   aws_common: any
   flutter_svg: any
   provider: any
