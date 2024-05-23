@@ -116,34 +116,7 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
                             ],
                           ),
                         ),
-                        Container(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
 
-                              const Text("Package Weight :",style: TextStyle(color: Colors.white,fontSize: 15),),
-                              DropdownButton<String>(
-                                value: packageRepo.weight,
-
-                                elevation: 16,
-                                style:  TextStyle(color: Colors.white,fontSize: 15),
-
-                                onChanged: (String? value) {
-
-                                  packageRepo.weight= value!;
-
-                                },
-                                items: packageRepo.packageWeightList.map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value,style: TextStyle(fontFamily: 'SometypeMono',fontSize: 15),),
-                                  );
-                                }).toList(),
-                              )
-                            ],
-                          ),
-                        ),
                         Container(
                           margin: const EdgeInsets.only(top: 20),
                           child: TextFormField(

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
@@ -10,16 +13,11 @@ class PackageRepository extends ChangeNotifier {
   final packageDescriptionController = TextEditingController();
   final deliveryAddressController = TextEditingController();
 
-  String _packageType="Food";
-  String _deliveryMode="Standard";
-  String _weight = "1KG";
+  String _packageType="FOOD";
+  String _deliveryMode="NORMAL";
   bool _loading = false;
 
-  List<String> _packageWeightList = [
-   "1KG",
-    "1KG-5KG",
-    "5K-10KG"
-  ];
+
 
 
   bool get loading => _loading;
@@ -29,25 +27,21 @@ class PackageRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> _packageTypeList = [ "Food",
-    "Medication",
-    "Electronics",
-    "Furniture",
-    "Fashion",
-    "Beauty",
-    "Other"];
+  List<String> _packageTypeList = [
+    "FOOD",
+    "MEDICATION",
+    "ELECTRONICS",
+    "FURNITURE",
+    "FASHION",
+   "BEAUTY",
+    "OTHER"];
 
-  String get weight => _weight;
 
-  set weight(String value) {
-    _weight = value;
-    notifyListeners();
-  }
 
   List<String> _deliveryModeList = [
-    "Standard",
-    "Express",
-    "Pro"
+    "NORMAL",
+    "EXPRESS",
+    "PRO"
   ];
 
 
@@ -90,11 +84,120 @@ class PackageRepository extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String> get packageWeightList => _packageWeightList;
 
-  set packageWeightList(List<String> value) {
-    _packageWeightList = value;
-    notifyListeners();
+
+  Future<void> createPackage(String userId,String userType) async {
+    loading = true;
+
+    try {
+      String graphQLDocument = '''
+    mutation createPackage( \$packageName: String!
+  \$packageDescription: String!
+  \$deliveryAddress: TransactionAddressInput!
+  \$pickupAddress: TransactionAddressInput!
+  \$senderId: String!
+  \$packageStatus: PACKAGE_STATUS!
+  \$packageType: PACKAGE_TYPE!
+  \$deliveryMode: PACKAGE_DELIVERY_MODE!) {
+  createPackage(
+    userInput: {
+       packageName: \$packageName
+  packageDescription: \$packageDescription
+  deliveryAddress: \$deliveryAddress
+  pickupAddress: \$pickupAddress
+  senderId: \$senderId
+  packageStatus: \$packageStatus
+  packageType: \$packageType
+  deliveryMode: \$deliveryMode
+    
+    }
+  ) {
+     deliveryAddress {
+      city
+      country
+      latitude
+      longitude
+      street
+      zip
+    }
+    createdAt
+    deliveryAgentId
+    deliveryMode
+    id
+    packageDescription
+    packageName
+    packageStatus
+    packageType
+    pickupAddress {
+      city
+      country
+      latitude
+      longitude
+      street
+      zip
+    }
+    senderId
+    updatedAt
   }
+}
+
+    
+    ''';
+
+      var operation = Amplify.API.mutate(
+          request: GraphQLRequest<String>(
+            document: graphQLDocument,
+            apiName: "packageDeliveryMicroserviceAPI-API-KEY",
+            variables: {
+              "packageName": packageNameController.text,
+              "packageDescription": packageDescriptionController.text,
+              "pickupAddress": {
+                "city": "city",
+                "street": "street",
+                "zip": 237,
+                "country": "country",
+                "latitude": "latitude",
+                "longitude": "longitude"
+              },
+              "deliveryAddress": {
+                "city": "Los Angeles",
+                "street": "456 Elm St",
+                "zip": 237,
+                "country": "USA",
+                "latitude": 34.0522,
+                "longitude": -118.2437
+              },
+              "packageStatus": "PENDING",
+              "packageType": packageType,
+              "deliveryMode": deliveryMode,
+              "senderId": userId
+
+            },
+          ));
+
+      var response = await operation.response;
+      if (kDebugMode) {
+        print("response operation $response");
+      }
+      if (response.data != null) {
+        final responseJson = json.decode(response.data!);
+        if (kDebugMode) {
+          print("here${responseJson['createPackage']}");
+        }
+        loading = false;
+      } else {
+        if (kDebugMode) {
+          print("something happened");
+        }
+        loading = false;
+      }
+    } catch (ex) {
+      if (kDebugMode) {
+        print(ex.toString());
+      }
+      loading = false;
+    }
+  }
+
 }
 
