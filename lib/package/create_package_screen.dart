@@ -208,52 +208,7 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
                             },
                           ),
                         ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 20),
-                          child: TextFormField(
-                            controller: packageRepo.deliveryAddressController,
-                            maxLines: 4,
-                            style: const TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                              filled: false,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: (Colors.grey[700])!, width: 1),
 
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: (Colors.grey[700])!, width: 1),
-
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: Theme.of(context).primaryColor,
-                                    width: 1),
-
-                              ),
-                              disabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    color: (Colors.grey[700])!, width: 1),
-
-                              ),
-                              labelText: 'Package Delivery Address',
-                              labelStyle: const TextStyle(color: Colors.white),
-                              hintText: "Package Delivery Address",
-                              hintStyle: TextStyle(
-                                color: Colors.grey[600],
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Package Delivery Address';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
 
                         Container(
                           margin: const EdgeInsets.only(top: 20),
@@ -303,33 +258,18 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
 
 
 
-                                    /*
-                                              profileRepo
-                                                  .saveUserProfileDetails(
-                                                      widget.email)
+
+                                              packageRepo
+                                                  .createPackage(
+                                                      "2gsAPYsRwadD5qEwLPYFsbKs9Vc",)
                                                   .then((_) {
-                                                Navigator.push(context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) {
-                                                  return MultiProvider(
-                                                    providers: [
-                                                      ChangeNotifierProvider(create: (BuildContext context) => SharedPrefsUtils.instance(),),
-                                                      ChangeNotifierProvider(
-                                                        create: (_) =>
-                                                            ProfileRepository
-                                                                .instance(),
-                                                      ),
-                                                      ChangeNotifierProvider(
-                                                        create: (_) =>
-                                                            TaskRepository.instance(),
-                                                      ),
-                                                    ],
-                                                    child: HomeScreen(),
-                                                  );
-                                                }));
+
+                                                    context.pushReplacement("/");
+
+
                                               });
 
-                  */
+
                                   }
                                 },
                                 child: const Text(

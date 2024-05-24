@@ -19,6 +19,24 @@ class PackageRepository extends ChangeNotifier {
 
 
 
+  double _longitude=0.0;
+  double _latitude=0.0;
+
+
+  double get longitude => _longitude;
+
+  set longitude(double value) {
+    _longitude = value;
+    notifyListeners();
+  }
+
+
+  double get latitude => _latitude;
+
+  set latitude(double value) {
+    _latitude = value;
+    notifyListeners();
+  }
 
   bool get loading => _loading;
 
@@ -86,7 +104,7 @@ class PackageRepository extends ChangeNotifier {
 
 
 
-  Future<void> createPackage(String userId,String userType) async {
+  Future<void> createPackage(String userId) async {
     loading = true;
 
     try {
@@ -152,20 +170,20 @@ class PackageRepository extends ChangeNotifier {
               "packageName": packageNameController.text,
               "packageDescription": packageDescriptionController.text,
               "pickupAddress": {
-                "city": "city",
-                "street": "street",
+                "city": "Douala",
+                "street": "Makepe",
                 "zip": 237,
-                "country": "country",
-                "latitude": "latitude",
-                "longitude": "longitude"
+                "country": "Cameroon",
+                "latitude": latitude,
+                "longitude": longitude
               },
               "deliveryAddress": {
-                "city": "Los Angeles",
-                "street": "456 Elm St",
+                "city": "Douala",
+                "street": "Bonamoussaddi",
                 "zip": 237,
-                "country": "USA",
-                "latitude": 34.0522,
-                "longitude": -118.2437
+                "country": "Cameroon",
+                "latitude": 4.0938311,
+                "longitude":  9.7508429
               },
               "packageStatus": "PENDING",
               "packageType": packageType,
