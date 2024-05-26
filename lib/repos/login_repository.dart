@@ -144,7 +144,6 @@ class LoginRepository extends ChangeNotifier{
             }
           }
 
-         // await Amplify.Auth.updateUserAttribute(userAttributeKey: AuthUserAttributeKey.emailVerified, value: 'true');
 
           return user;
         });

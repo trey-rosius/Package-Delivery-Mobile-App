@@ -7,7 +7,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_delivery/create_user_account.dart';
-import 'package:package_delivery/repos/login_respository.dart';
+import 'package:package_delivery/repos/login_repository.dart';
 import 'package:package_delivery/repos/package_repository.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
 import 'package:package_delivery/utils/shared_preferences.dart';
@@ -223,7 +223,7 @@ class _MyAppState extends State<MyApp> {
 
                   ],
                   child:
-                  const WelcomeScreen() ),
+                  const CreatePackageScreen() ),
                  // HomeScreen() ),
         ),
       ],
