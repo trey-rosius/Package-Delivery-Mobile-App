@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "packagedelivery4af4f410_identitypool_4af4f410",
+    "identityPoolName": "packagedeliverydde43dcb_identitypool_dde43dcb",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "packag4af4f410",
-    "userPoolName": "packagedelivery4af4f410_userpool_4af4f410",
+    "resourceNameTruncated": "packagdde43dcb",
+    "userPoolName": "packagedeliverydde43dcb_userpool_dde43dcb",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -31,19 +31,18 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "packag4af4f410_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "packagdde43dcb_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "4af4f410",
-    "resourceName": "packagedelivery4af4f410",
+    "sharedId": "dde43dcb",
+    "resourceName": "packagedeliverydde43dcb",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "defaultSocial",
     "hostedUI": true,
-    "hostedUIDomainName": "packagedelivery4af4f410-4af4f410",
+    "hostedUIDomainName": "packagedeliverydde43dcb-dde43dcb",
     "authProvidersUserPool": [
       "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"myapp://\"],\"LogoutURLs\":[\"myapp://\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -61,6 +60,7 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": []
+    "dependsOn": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"myapp://\"],\"LogoutURLs\":[\"myapp://\"]}"
   }
 }

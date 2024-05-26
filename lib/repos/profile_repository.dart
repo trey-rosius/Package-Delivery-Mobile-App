@@ -252,7 +252,7 @@ double _longitude=0.0;
       var operation = Amplify.API.mutate(
           request: GraphQLRequest<String>(
             document: graphQLDocument,
-            apiName: "packageDeliveryMicroserviceAPI-API-KEY",
+            apiName: "packageDeliveryMicroserviceAPI_API_KEY",
             variables: {
               "username": usernameController.text,
               "first_name": firstNameController.text,

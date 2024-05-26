@@ -1,6 +1,6 @@
 {
   "auth": {
-    "packagedelivery4af4f410": {
+    "packagedeliverydde43dcb": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
@@ -28,7 +28,7 @@
     }
   },
   "storage": {
-    "s37810a93f": {
+    "s3e045813e": {
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "S3"

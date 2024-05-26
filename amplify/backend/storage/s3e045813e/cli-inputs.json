@@ -1,7 +1,7 @@
 {
-  "resourceName": "s37810a93f",
-  "policyUUID": "7810a93f",
-  "bucketName": "packagedelivery938441dbc4804987bfa96c2ddca66716",
+  "resourceName": "s3e045813e",
+  "policyUUID": "e045813e",
+  "bucketName": "packagedeliveryd3a15351292845bc801c2f20db210cee",
   "storageAccess": "authAndGuest",
   "guestAccess": [
     "READ"

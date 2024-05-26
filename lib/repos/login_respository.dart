@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../models/User.dart';
+import '../utils/sign_in_with_web_ui_options.dart';
 import '../utils/shared_preferences.dart';
 
 
@@ -114,6 +115,8 @@ class LoginRepository extends ChangeNotifier{
     try {
       var res =
       await Amplify.Auth.signInWithWebUI(provider: AuthProvider.google);
+      
+
 
       isSignedIn = res.isSignedIn;
       if (isSignedIn) {
@@ -137,31 +140,12 @@ class LoginRepository extends ChangeNotifier{
                 googleLoading = false;
                 return item.value;
               });
-/*
-              if (user != null) {
-                print("user id is ${user.id}");
-                await SharedPrefsUtils.instance()
-                    .saveUserId(user.id);
-                await SharedPrefsUtils.instance()
-                    .saveUserEmail(user.email);
-                googleLoading = false;
-                return user;
-              } else {
 
-                await SharedPrefsUtils.instance()
-                    .saveUserEmail(item.value)
-                    .then((value) {
-                  if (kDebugMode) {
-                    print("email address saved");
-                  }
-                  googleLoading = false;
-                  return item.value;
-                });
-                return user;
-              }
-              */
             }
           }
+
+         // await Amplify.Auth.updateUserAttribute(userAttributeKey: AuthUserAttributeKey.emailVerified, value: 'true');
+
           return user;
         });
       } else {

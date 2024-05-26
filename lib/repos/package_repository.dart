@@ -165,7 +165,7 @@ class PackageRepository extends ChangeNotifier {
       var operation = Amplify.API.mutate(
           request: GraphQLRequest<String>(
             document: graphQLDocument,
-            apiName: "packageDeliveryMicroserviceAPI-API-KEY",
+            apiName: "packageDeliveryMicroserviceAPI_API_KEY",
             variables: {
               "packageName": packageNameController.text,
               "packageDescription": packageDescriptionController.text,

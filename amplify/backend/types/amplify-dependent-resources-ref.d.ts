@@ -1,6 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
   "auth": {
-    "packagedelivery4af4f410": {
+    "packagedeliverydde43dcb": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "HostedUIDomain": "string",
@@ -13,7 +13,7 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
-    "s37810a93f": {
+    "s3e045813e": {
       "BucketName": "string",
       "Region": "string"
     }
