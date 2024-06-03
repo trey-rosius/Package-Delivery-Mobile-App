@@ -8,6 +8,10 @@
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>Package Delivery</string>
+	<key>NSCameraUsageDescription</key>
+    <string>We need your photo in-order to create a personalized user profile for you.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string> We need your photo in-order to create a personalized user profile for you.</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>

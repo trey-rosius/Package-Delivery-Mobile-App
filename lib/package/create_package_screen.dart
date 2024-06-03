@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:package_delivery/repos/package_repository.dart';
 import 'package:provider/provider.dart';
@@ -19,10 +20,33 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  Position? _position;
+  void  _getCurrentPosition() async {
+
+    // continue accessing the position of the device.
+    _position =  await Geolocator.getCurrentPosition();
+    setState(() {
+      //_position =  await Geolocator.getCurrentPosition();
+
+    });
+
+
+    print("latitude is ${_position!.latitude}");
+    print("longitude is ${_position!.longitude}");
+
+
+  }
+
+  @override
+  void initState() {
+    _getCurrentPosition();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var profileRepo = context.watch<ProfileRepository>();
+   // var profileRepo = context.watch<ProfileRepository>();
     var sharedPrefs = context.watch<SharedPrefsUtils>();
     return  Scaffold(
       key: _scaffoldKey,
@@ -256,15 +280,13 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
                                   } else {
                                     form.save();
 
-
-
-
                                               packageRepo
                                                   .createPackage(
-                                                      "2gsAPYsRwadD5qEwLPYFsbKs9Vc",)
+                                                      "8yujcf99c5-55bf-465c-b897-e65421f79cf7e",_position!.longitude,
+                                                  _position!.latitude)
                                                   .then((_) {
 
-                                                    context.pushReplacement("/");
+                                                   // context.pushReplacement("/");
 
 
                                               });

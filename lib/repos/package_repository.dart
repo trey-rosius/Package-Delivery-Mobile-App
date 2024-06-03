@@ -104,7 +104,7 @@ class PackageRepository extends ChangeNotifier {
 
 
 
-  Future<void> createPackage(String userId) async {
+  Future<void> createPackage(String userId,double longitude,double latitude) async {
     loading = true;
 
     try {
@@ -118,7 +118,7 @@ class PackageRepository extends ChangeNotifier {
   \$packageType: PACKAGE_TYPE!
   \$deliveryMode: PACKAGE_DELIVERY_MODE!) {
   createPackage(
-    userInput: {
+    input: {
        packageName: \$packageName
   packageDescription: \$packageDescription
   deliveryAddress: \$deliveryAddress
