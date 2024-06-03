@@ -33,7 +33,14 @@ class ProfileRepository extends ChangeNotifier {
 double _longitude=0.0;
    double _latitude=0.0;
 
+   User? _user;
 
+  User? get getUser => _user;
+
+  set setUser(User? value) {
+    _user = value;
+    notifyListeners();
+  }
   double get longitude => _longitude;
 
   set longitude(double value) {
@@ -270,7 +277,7 @@ double _longitude=0.0;
               "geolocation": { "latitude": latitude, "longitude": longitude},
               "email": email,
               "user_type": userType,
-              "profile_pic_url": profilePicUrl,
+              "profile_pic_url": profilePicKey,
 
             },
           ));
@@ -347,9 +354,10 @@ double _longitude=0.0;
 
       loading = false;
 
-      print("returning ${responseJson['getUserAccount']}");
+
 
       User userModel = User.fromJson(responseJson['getUserAccount']);
+      setUser = userModel;
       if (kDebugMode) {
         print("returning ${userModel.email}");
       }

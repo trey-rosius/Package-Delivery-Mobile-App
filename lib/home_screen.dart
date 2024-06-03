@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:package_delivery/profile/profile_screen.dart';
+import 'package:package_delivery/repos/profile_repository.dart';
 import 'package:package_delivery/utils/FABBottomAppBarItem.dart';
 import 'package:package_delivery/utils/icon_text.dart';
 import 'package:package_delivery/utils/step_progress_view.dart';
+import 'package:provider/provider.dart';
 
 import 'order/line_chart.dart';
 import 'order/order_history_screen.dart';
@@ -48,10 +51,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(top: 10,bottom: 10),
                 child:
                 _selectedTabIndex ==0 ?
-                Text('dlveries',style: TextStyle(color: Colors.white,fontSize: 20),) :
+                const Text('dlveries',style: TextStyle(color: Colors.white,fontSize: 20),) :
                 _selectedTabIndex == 2 ?
-                Text('order history',style: TextStyle(color: Colors.white,fontSize: 20),)  :
-                Text('other screen',style: TextStyle(color: Colors.white,fontSize: 20),)
+                const Text('order history',style: TextStyle(color: Colors.white,fontSize: 20),)  :
+                const Text('other screen',style: TextStyle(color: Colors.white,fontSize: 20),)
             )),
       ),
          body: _selectedTabIndex ==0 ?SingleChildScrollView(
@@ -390,7 +393,8 @@ class _HomeScreenState extends State<HomeScreen> {
              ),
 
          ): _selectedTabIndex ==2 ?
-         OrderHistoryScreen():LineChartSample2(),
+         const OrderHistoryScreen():ChangeNotifierProvider(create: (context)=>ProfileRepository.instance(),
+         child: ProfileScreen(userId: "adasdasdasdasd"),),
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: '',
         color: Colors.grey,
