@@ -4,6 +4,9 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:package_delivery/models/PackagesResult.dart';
+
+import '../models/Package.dart';
 
 
 class PackageRepository extends ChangeNotifier {
@@ -17,7 +20,17 @@ class PackageRepository extends ChangeNotifier {
   String _deliveryMode="NORMAL";
   bool _loading = false;
 
+  List<Package> _packageList = [];
 
+
+  List<Package> get packageList => _packageList;
+
+
+
+  set packageList(List<Package> value) {
+    _packageList = value;
+    notifyListeners();
+  }
 
   double _longitude=0.0;
   double _latitude=0.0;
@@ -100,6 +113,75 @@ class PackageRepository extends ChangeNotifier {
   set deliveryModeList(List<String> value) {
     _deliveryModeList = value;
     notifyListeners();
+  }
+
+  Future<void> getPackagesByStatus(String status) async {
+    loading = true;
+    String graphQLDocument = '''
+    query getPackagesByStatus(\$packageStatus:String!) {
+  getPackagesByStatus(packageStatus:\$packageStatus) {
+  items{
+   createdAt
+    deliveryAddress {
+      city
+      country
+      latitude
+      longitude
+      street
+      zip
+    }
+    deliveryAgentId
+    deliveryMode
+    id
+    packageDescription
+    packageName
+    packageStatus
+    packageType
+    pickupAddress {
+      city
+      country
+      latitude
+      longitude
+      street
+      zip
+    }
+    senderId
+    updatedAt
+  }
+  }
+}
+''';
+
+    var operation = Amplify.API.query(
+        request: GraphQLRequest<String>(
+          document: graphQLDocument,
+          apiName: "packageDeliveryMicroserviceAPI_API_KEY",
+          variables: {
+            "packageStatus": status,
+
+
+          },
+        ));
+
+    var response = await operation.response;
+    if (kDebugMode) {
+      print("returning ${response}");
+    }
+
+    final responseJson = json.decode(response.data!);
+    loading = false;
+
+    if (kDebugMode) {
+      print("returning ${responseJson['getPackagesByStatus']}");
+    }
+
+    PackagesResult packagesResult = PackagesResult.fromJson(responseJson['getPackagesByStatus']);
+
+    if (kDebugMode) {
+      print("returning ${packagesResult.items[0]}");
+    }
+    packageList = packagesResult.items;
+    // return postsResults;
   }
 
 

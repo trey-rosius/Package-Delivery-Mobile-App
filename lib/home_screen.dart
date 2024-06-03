@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_delivery/profile/profile_screen.dart';
+import 'package:package_delivery/repos/package_repository.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
 import 'package:package_delivery/utils/FABBottomAppBarItem.dart';
 import 'package:package_delivery/utils/icon_text.dart';
@@ -393,8 +394,12 @@ class _HomeScreenState extends State<HomeScreen> {
              ),
 
          ): _selectedTabIndex ==2 ?
-         const OrderHistoryScreen():ChangeNotifierProvider(create: (context)=>ProfileRepository.instance(),
-         child: ProfileScreen(userId: "2hN4jvcc5DjsEtEkJqyssauh8TY"),),
+         const OrderHistoryScreen():MultiProvider(providers: [
+           ChangeNotifierProvider(create: (context)=>ProfileRepository.instance()),
+           ChangeNotifierProvider(create: (context)=>PackageRepository.instance()),
+         ],
+         child:ProfileScreen(userId: "2hN4jvcc5DjsEtEkJqyssauh8TY") ,),
+
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: '',
         color: Colors.grey,

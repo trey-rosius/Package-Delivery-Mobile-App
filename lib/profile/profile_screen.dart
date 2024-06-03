@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:package_delivery/profile/shimmer_profile_screen.dart';
+import 'package:package_delivery/repos/package_repository.dart';
 import 'package:provider/provider.dart';
 
 
@@ -31,8 +32,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     super.initState();
 
     var profileRepo = context.read<ProfileRepository>();
+    var  packagesRepo = context.read<PackageRepository>();
     Future.delayed(Duration.zero).then((_) async {
-     // postRepo.getAllPosts(10);
+      packagesRepo.getPackagesByStatus("PENDING");
       profileRepo.getUserAccountById(widget.userId);
     });
   }
@@ -42,6 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
     ProfileRepository profileRepository = context.watch<ProfileRepository>();
+    PackageRepository packageRepository = context.watch<PackageRepository>();
     return Scaffold(
         key: _scaffoldKey,
 
@@ -120,10 +123,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           FontWeight.bold),
                                     ),
                                   ),
-                                  Container(
-                                    child:
-                                    Text(profileRepository.getUser!.username,style: TextStyle(color: Colors.white),),
-                                  ),
+                                  TextButton.icon(onPressed: (){
+
+                                  }, icon: Icon(Icons.phone,
+                                  color: Theme.of(context).colorScheme.secondary,), label:  Text(profileRepository.getUser!.phone_number,
+                                    style: TextStyle(color: Colors.white,fontSize: 17),))
+
                                 ],
                               ),
                             ),
@@ -148,61 +153,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                       Container(
-                        padding:
-                        EdgeInsets.symmetric(vertical: 10),
-                        child: Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceBetween,
+                        child: Text("Customer Address",style: TextStyle(fontSize: 17,
+                            color: Colors.white,decoration: TextDecoration.underline),),
+                      ),
+                      Container(
+
+                        child:Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              child: const Row(
-                                children: [
-                                  Text(
-                                    '170',
-                                    style: TextStyle(
-                                        fontWeight:
-                                        FontWeight.bold),
-                                  ),
-                                  Text(' '),
-                                  Text(
-                                    'Designs',
-                                    style: TextStyle(),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: const Row(
-                                children: [
-                                  Text(
-                                    '6',
-                                    style: TextStyle(
-                                        fontWeight:
-                                        FontWeight.bold),
-                                  ),
-                                  Text(' '),
-                                  Text('Followings',
-                                      style: TextStyle())
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: const Row(
-                                children: [
-                                  Text(
-                                    '6',
-                                    style: TextStyle(
-                                        fontWeight:
-                                        FontWeight.bold),
-                                  ),
-                                  Text(' '),
-                                  Text(
-                                    'Followings',
-                                    style: TextStyle(),
-                                  )
-                                ],
-                              ),
-                            ),
+                            Text("address: ${profileRepository.getUser!.address.street}123 Main Street, Apt. 5",style: TextStyle(color: Colors.white)),
+                            Text("zip: ${profileRepository.getUser!.address.zip}",style: TextStyle(color: Colors.white),),
+                            Text("city: ${profileRepository.getUser!.address.city}",style: TextStyle(color: Colors.white)),
+                            Text("country: ${profileRepository.getUser!.address.country}",style: TextStyle(color: Colors.white)),
                           ],
                         ),
                       ),
@@ -232,10 +195,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             }else{
-              return Container(color: Colors.red,);
+              index -= 1;
+              return Container(
+                child:Text( packageRepository.packageList[index].packageName,style: TextStyle(color: Colors.white),),
+              );
             }
           },
-          itemCount: 2,
+          itemCount: packageRepository.packageList.length+1,
         ));
   }
 }
