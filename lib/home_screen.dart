@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Text('dlveries',style: TextStyle(color: Colors.white,fontSize: 20),) :
                 _selectedTabIndex == 2 ?
                 const Text('order history',style: TextStyle(color: Colors.white,fontSize: 20),)  :
-                const Text('other screen',style: TextStyle(color: Colors.white,fontSize: 20),)
+                Text('Profile screen',style: TextStyle(color:Theme.of(context).primaryColor,fontSize: 17),)
             )),
       ),
          body: _selectedTabIndex ==0 ?SingleChildScrollView(
@@ -394,7 +394,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
          ): _selectedTabIndex ==2 ?
          const OrderHistoryScreen():ChangeNotifierProvider(create: (context)=>ProfileRepository.instance(),
-         child: ProfileScreen(userId: "adasdasdasdasd"),),
+         child: ProfileScreen(userId: "2hN4jvcc5DjsEtEkJqyssauh8TY"),),
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: '',
         color: Colors.grey,

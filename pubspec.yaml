@@ -40,6 +40,7 @@ dependencies:
   uuid: any
   amplify_storage_s3: any
   amplify_auth_cognito: ^1.6.1
+  shimmer: ^3.0.0
   aws_common: any
   flutter_svg: any
   provider: any

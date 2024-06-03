@@ -313,7 +313,7 @@ double _longitude=0.0;
       String graphQLDocument = '''
     
       query getUserAccount(\$userId:String!) {
-  getUserAccount(userId:\$userId ) {
+  getUserAccount(userId:\$userId) {
     address {
       city
       country
@@ -337,6 +337,7 @@ double _longitude=0.0;
     user_type
     username
 }
+}
     ''';
 
       var operation = Amplify.API.query(
@@ -349,6 +350,8 @@ double _longitude=0.0;
           ));
 
       var response = await operation.response;
+
+       print("response is $response");
 
       final responseJson = json.decode(response.data!);
 

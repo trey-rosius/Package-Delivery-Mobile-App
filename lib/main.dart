@@ -223,7 +223,7 @@ class _MyAppState extends State<MyApp> {
 
                   ],
                   child:
-                  const WelcomeScreen() ),
+                  const HomeScreen() ),
                  // HomeScreen() ),
         ),
       ],

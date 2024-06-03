@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:package_delivery/profile/shimmer_profile_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -43,11 +44,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ProfileRepository profileRepository = context.watch<ProfileRepository>();
     return Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(),
+
         body: ListView.builder(
           itemBuilder: (context, index) {
             if (index == 0) {
-              return SingleChildScrollView(
+              return profileRepository.getUser == null
+                  ? ShimmerProfileScreen(): SingleChildScrollView(
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
@@ -113,13 +115,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       "${profileRepository.getUser!.last_name} ${profileRepository.getUser!.first_name}",
                                       style: const TextStyle(
                                           fontSize: 17,
+                                          color: Colors.white,
                                           fontWeight:
                                           FontWeight.bold),
                                     ),
                                   ),
                                   Container(
                                     child:
-                                    Text(profileRepository.getUser!.username),
+                                    Text(profileRepository.getUser!.username,style: TextStyle(color: Colors.white),),
                                   ),
                                 ],
                               ),
@@ -133,18 +136,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Container(
                               width: 40,
                               height: 40,
-                              decoration: const BoxDecoration(
+                              decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                      begin: Alignment.topLeft,
-                                      end: Alignment(0.8, 1),
-                                      colors: [
-                                        Color(0xFFFBDA61),
-                                        Color(0xFFFF5ACD),
-                                      ])),
+                                  color: Theme.of(context).colorScheme.secondary),
                               child: const Icon(
                                 Icons.edit,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                           ),
