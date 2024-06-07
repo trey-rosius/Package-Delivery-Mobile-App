@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:package_delivery/package/package_item.dart';
 import 'package:package_delivery/profile/shimmer_profile_screen.dart';
 import 'package:package_delivery/repos/package_repository.dart';
 import 'package:provider/provider.dart';
@@ -131,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                                   }, icon: Icon(Icons.phone,
                                   color: Theme.of(context).colorScheme.secondary,), label:  Text(profileRepository.getUser!.phone_number,
-                                    style: TextStyle(color: Colors.white,fontSize: 17),))
+                                    style: const TextStyle(color: Colors.white,fontSize: 17),))
 
                                 ],
                               ),
@@ -207,56 +208,62 @@ class _ProfileScreenState extends State<ProfileScreen> {
             }
             else{
               index -= 2;
-              return Container(
-                child:Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      margin: EdgeInsets.only(bottom: 10,right: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
+              return InkWell(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                      PackageItem(packageItem: packageRepository.packageList[index])));
+                },
+                child: Container(
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        margin: EdgeInsets.only(bottom: 10,right: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
 
-                        shape: BoxShape.circle
+                          shape: BoxShape.circle
+                        ),
+                        child: SvgPicture.asset(
+                          'assets/svgs/package_svg.svg',
+                          height: 45,
+                          width: 45,
+                          fit: BoxFit.cover,
+                          color: Colors.black,
+
+                        ) ,
                       ),
-                      child: SvgPicture.asset(
-                        'assets/svgs/package_svg.svg',
-                        height: 45,
-                        width: 45,
-                        fit: BoxFit.cover,
-                        color: Colors.black,
 
-                      ) ,
-                    ),
-                   
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text( packageRepository.packageList[index].packageName,style: TextStyle(color: Colors.white,),),
-                        Row(
-                          children: [
-                            const Text("Package Status: ",style: TextStyle(color: Colors.white),),
-                            Text(packageRepository.packageList[index].packageStatus.name,style:  TextStyle(color: Theme.of(context).colorScheme.secondary),),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Text("Delivery Mode: ",style:  TextStyle(color:Colors.white)),
-                            Text(packageRepository.packageList[index].deliveryMode.name,style:  TextStyle(color: Theme.of(context).colorScheme.secondary),),
-                          ],
-                        ),
-                       Container(
-                         margin: EdgeInsets.only(top: 10,bottom: 10),
-                         width: size.width/1.5,
-                         height: 2,
-                         color: Colors.white,
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text( packageRepository.packageList[index].packageName,style: TextStyle(color: Colors.white,),),
+                          Row(
+                            children: [
+                              const Text("Package Status: ",style: TextStyle(color: Colors.white),),
+                              Text(packageRepository.packageList[index].packageStatus.name,style:  TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              const Text("Delivery Mode: ",style:  TextStyle(color:Colors.white)),
+                              Text(packageRepository.packageList[index].deliveryMode.name,style:  TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                            ],
+                          ),
+                         Container(
+                           margin: EdgeInsets.only(top: 10,bottom: 10),
+                           width: size.width/1.5,
+                           height: 2,
+                           color: Colors.white,
 
-                       )
-                      ],
-                    )
-                  ],
+                         )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               );
             }

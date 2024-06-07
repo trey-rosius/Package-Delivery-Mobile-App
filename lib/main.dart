@@ -81,17 +81,6 @@ class _MyAppState extends State<MyApp> {
       await Amplify.configure(amplifyconfig);
       _logger.debug('Successfully configured Amplify');
 
-      Amplify.Hub.listen(HubChannel.Auth, (event) {
-        _logger.info('Auth Event: $event');
-      });
-    } on Exception catch (e, st) {
-      _logger.error('Configuring Amplify failed', e, st);
-    }
-/*
-
-      // Once Plugins are added, configure Amplify
-      await Amplify.configure(amplifyconfig);
-
       if(Amplify.isConfigured){
         print('amplify configure');
         setState(() {
@@ -103,22 +92,15 @@ class _MyAppState extends State<MyApp> {
         });
       }
 
-
-
-    } catch(e) {
+      Amplify.Hub.listen(HubChannel.Auth, (event) {
+        _logger.info('Auth Event: $event');
+      });
+    } on Exception catch (e, st) {
       setState(() {
         loadedAmplify = false;
       });
-      if (kDebugMode) {
-        print('an error occured during amplify configuration: $e');
-      }
-
-
-
+      _logger.error('Configuring Amplify failed', e, st);
     }
-
-      */
-
 
 
   }
@@ -147,88 +129,92 @@ class _MyAppState extends State<MyApp> {
         fontFamily: 'SometypeMono',
         colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xFFffed48)).copyWith(background: Colors.black),
       ),
-        routerConfig: _router
+        routerConfig:GoRouter(
+          routes:[
+            GoRoute(
+                name:'createUserAccount',
+                path: '/createUserAccount',
+                builder: (BuildContext context, GoRouterState state){
+                  return MultiProvider(providers: [
+                    ChangeNotifierProvider(create: (context) => ProfileRepository.instance()),
+                    ChangeNotifierProvider(create: (context) => SharedPrefsUtils.instance()),
+                  ],
+                    child: CreateUserAccountScreen(),);
+
+
+                }),
+
+            GoRoute(
+                name:'createPackage',
+                path: '/createPackage',
+                builder: (BuildContext context, GoRouterState state){
+                  return MultiProvider(providers: [
+                    ChangeNotifierProvider(create: (context) => ProfileRepository.instance()),
+                    ChangeNotifierProvider(create: (context) => PackageRepository.instance()),
+                    ChangeNotifierProvider(create: (context) => SharedPrefsUtils.instance()),
+                  ],
+                      child: const CreatePackageScreen());
+
+
+                }),
+
+            GoRoute(
+                name:'orderHistory',
+                path: '/orderHistory',
+                builder: (BuildContext context, GoRouterState state){
+                  return
+                    OrderHistoryScreen();
+
+                }),
+            GoRoute(
+              name: "WelcomeScreen",
+              path: '/WelcomeScreen',
+
+              builder: (BuildContext context, GoRouterState state) =>
+                  MultiProvider(
+                      providers: [
+
+                        ChangeNotifierProvider(create: (BuildContext context) => LoginRepository.instance(),),
+                        ChangeNotifierProvider(create: (BuildContext context) => ProfileRepository.instance(),),
+
+
+
+                      ],
+                      child:
+                      const WelcomeScreen() ),
+            ),
+
+            GoRoute(
+              path: '/',
+              name:"HomeScreen",
+
+              builder: (BuildContext context, GoRouterState state) =>
+                  MultiProvider(
+                      providers: [
+
+                        ChangeNotifierProvider(create: (BuildContext context) => LoginRepository.instance(),),
+                        ChangeNotifierProvider(create: (BuildContext context) => ProfileRepository.instance(),),
+                        ChangeNotifierProvider(create: (BuildContext context) => SharedPrefsUtils.instance(),),
+                        ChangeNotifierProvider(create: (BuildContext context) => PackageRepository.instance(),),
+
+
+
+                      ],
+                      child:loadedAmplify? HomeScreen() : Container(
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ) ),
+              // HomeScreen() ),
+            ),
+          ],
+
+        )
 
     );
 
   }
-  final _router = GoRouter(
-      routes:[
-        GoRoute(
-          name:'createUserAccount',
-            path: '/createUserAccount',
-        builder: (BuildContext context, GoRouterState state){
-          return MultiProvider(providers: [
-              ChangeNotifierProvider(create: (context) => ProfileRepository.instance()),
-              ChangeNotifierProvider(create: (context) => SharedPrefsUtils.instance()),
-          ],
-          child: CreateUserAccountScreen(),);
 
-
-        }),
-
-        GoRoute(
-            name:'createPackage',
-            path: '/createPackage',
-            builder: (BuildContext context, GoRouterState state){
-              return MultiProvider(providers: [
-                  ChangeNotifierProvider(create: (context) => ProfileRepository.instance()),
-                  ChangeNotifierProvider(create: (context) => PackageRepository.instance()),
-              ChangeNotifierProvider(create: (context) => SharedPrefsUtils.instance()),
-              ],
-              child: const CreatePackageScreen());
-
-
-            }),
-
-        GoRoute(
-            name:'orderHistory',
-            path: '/orderHistory',
-            builder: (BuildContext context, GoRouterState state){
-              return
-                OrderHistoryScreen();
-
-            }),
-        GoRoute(
-          name: "WelcomeScreen",
-          path: '/WelcomeScreen',
-
-          builder: (BuildContext context, GoRouterState state) =>
-              MultiProvider(
-                  providers: [
-
-                    ChangeNotifierProvider(create: (BuildContext context) => LoginRepository.instance(),),
-                    ChangeNotifierProvider(create: (BuildContext context) => ProfileRepository.instance(),),
-
-
-
-                  ],
-                  child:
-                 const WelcomeScreen() ),
-        ),
-
-        GoRoute(
-          path: '/',
-          name:"HomeScreen",
-
-          builder: (BuildContext context, GoRouterState state) =>
-              MultiProvider(
-                  providers: [
-
-                    ChangeNotifierProvider(create: (BuildContext context) => LoginRepository.instance(),),
-                    ChangeNotifierProvider(create: (BuildContext context) => ProfileRepository.instance(),),
-                    ChangeNotifierProvider(create: (BuildContext context) => SharedPrefsUtils.instance(),),
-
-
-
-                  ],
-                  child:
-                  const HomeScreen() ),
-                 // HomeScreen() ),
-        ),
-      ],
-
-  );
 
 }
 
