@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../models/Package.dart';
 import '../utils/step_progress_view.dart';
 
 class PackageItem extends StatefulWidget {
-  const PackageItem({super.key});
+  const PackageItem({required this.packageItem,super.key});
+  final Package packageItem;
 
 
   @override

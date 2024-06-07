@@ -8,7 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:package_delivery/profile/shimmer_profile_screen.dart';
 import 'package:package_delivery/repos/package_repository.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 import '../repos/profile_repository.dart';
@@ -45,10 +45,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     ProfileRepository profileRepository = context.watch<ProfileRepository>();
     PackageRepository packageRepository = context.watch<PackageRepository>();
+
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         key: _scaffoldKey,
 
         body: ListView.builder(
+
           itemBuilder: (context, index) {
             if (index == 0) {
               return profileRepository.getUser == null
@@ -89,10 +92,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                              BorderRadius.circular(
                                                  1000),
                                              child: Image.asset(
-                                               "assets/avatars/Image-71.jpg",
+                                               "assets/images/account.png",
                                                width: 60,
                                                height: 60,
                                                fit: BoxFit.cover,
+                                               color: Colors.white,
                                              ),
                                            ),
                                      ));
@@ -180,12 +184,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             const Text(
                               'About',
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold),
+                                  fontWeight: FontWeight.bold,color: Colors.white),
                             ),
                             Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 10),
-                              child: Text(profileRepository.getUser!.address.country),
+                              child: Text("simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took ",
+                              style: TextStyle(color: Colors.white),),
                             )
                           ],
                         ),
@@ -194,14 +199,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               );
-            }else{
-              index -= 1;
+            }else if (index == 1) {
               return Container(
-                child:Text( packageRepository.packageList[index].packageName,style: TextStyle(color: Colors.white),),
+                padding: EdgeInsets.only(bottom: 20),
+                child: const Text("Packages:",style: TextStyle(color: Colors.white),),
+              );
+            }
+            else{
+              index -= 2;
+              return Container(
+                child:Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.only(bottom: 10,right: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+
+                        shape: BoxShape.circle
+                      ),
+                      child: SvgPicture.asset(
+                        'assets/svgs/package_svg.svg',
+                        height: 45,
+                        width: 45,
+                        fit: BoxFit.cover,
+                        color: Colors.black,
+
+                      ) ,
+                    ),
+                   
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text( packageRepository.packageList[index].packageName,style: TextStyle(color: Colors.white,),),
+                        Row(
+                          children: [
+                            const Text("Package Status: ",style: TextStyle(color: Colors.white),),
+                            Text(packageRepository.packageList[index].packageStatus.name,style:  TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            const Text("Delivery Mode: ",style:  TextStyle(color:Colors.white)),
+                            Text(packageRepository.packageList[index].deliveryMode.name,style:  TextStyle(color: Theme.of(context).colorScheme.secondary),),
+                          ],
+                        ),
+                       Container(
+                         margin: EdgeInsets.only(top: 10,bottom: 10),
+                         width: size.width/1.5,
+                         height: 2,
+                         color: Colors.white,
+
+                       )
+                      ],
+                    )
+                  ],
+                ),
               );
             }
           },
-          itemCount: packageRepository.packageList.length+1,
+          itemCount: packageRepository.packageList.length+2,
         ));
   }
 }

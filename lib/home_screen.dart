@@ -52,10 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.only(top: 10,bottom: 10),
                 child:
                 _selectedTabIndex ==0 ?
-                const Text('dlveries',style: TextStyle(color: Colors.white,fontSize: 20),) :
+                const Text('dlveries',style: TextStyle(color: Colors.white,),) :
                 _selectedTabIndex == 2 ?
-                const Text('order history',style: TextStyle(color: Colors.white,fontSize: 20),)  :
-                Text('Profile screen',style: TextStyle(color:Theme.of(context).primaryColor,fontSize: 17),)
+                const Text('order history',style: TextStyle(color: Colors.white,),)  :
+                Text('Profile screen',style: TextStyle(color:Colors.white),)
             )),
       ),
          body: _selectedTabIndex ==0 ?SingleChildScrollView(
