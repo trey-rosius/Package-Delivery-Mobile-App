@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_delivery/profile/profile_screen.dart';
 import 'package:package_delivery/repos/package_repository.dart';
 import 'package:package_delivery/repos/profile_repository.dart';
@@ -423,6 +424,22 @@ class _HomeScreenState extends State<HomeScreen> {
            ChangeNotifierProvider(create: (context)=>PackageRepository.instance()),
          ],
          child:ProfileScreen(userId: "2hN4jvcc5DjsEtEkJqyssauh8TY") ,),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+     shape:const CircleBorder(),
+        onPressed: (){
+          context.push('/createPackage');
+
+        },
+        child:SvgPicture.asset(
+          'assets/svgs/package_svg.svg',
+          height: 35,
+          width: 35,
+          fit: BoxFit.cover,
+          color: Colors.black,
+
+        )  ,
+      ),
 
       bottomNavigationBar: FABBottomAppBar(
         centerItemText: '',

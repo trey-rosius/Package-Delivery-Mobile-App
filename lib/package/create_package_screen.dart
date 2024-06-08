@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:package_delivery/repos/package_repository.dart';
 import 'package:provider/provider.dart';
 
-import '../repos/login_repository.dart';
-import '../repos/profile_repository.dart';
 import '../utils/shared_preferences.dart';
 import '../welcome_screen.dart';
 class CreatePackageScreen extends StatefulWidget {
@@ -50,25 +48,16 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
     var sharedPrefs = context.watch<SharedPrefsUtils>();
     return  Scaffold(
       key: _scaffoldKey,
-        appBar:  PreferredSize(
-
-
-          preferredSize: const Size(double.infinity,80),
+        appBar: PreferredSize(
+          preferredSize: const Size(double.infinity, 80),
           child: SafeArea(
-              child:
-              Container(
-                padding: EdgeInsets.only(top: 10,bottom: 10),
-                  child:
-              Text('Create Package',style: TextStyle(color: Theme.of(context).primaryColor),))),
+              child: Container(
+                  child: const Text(
+                    'Create Package',
+                    style: TextStyle(color: Colors.white),
+                  ))),
         ),
-      body:FutureProvider<String?>(
-    create: (BuildContext context) {
-    return sharedPrefs.getUserEmail();
-    },
-    initialData: null,
-    child: Consumer<String?>(builder: (_, String? email, child) {
-      return email != null ?
-      ChangeNotifierProvider.value(value: PackageRepository.instance(),
+      body: ChangeNotifierProvider.value(value: PackageRepository.instance(),
         child: Consumer(builder: (_,PackageRepository packageRepo,child){
           return SingleChildScrollView(
             child: Container(
@@ -280,16 +269,16 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
                                   } else {
                                     form.save();
 
-                                              packageRepo
-                                                  .createPackage(
-                                                      "8yujcf99c5-55bf-465c-b897-e65421f79cf7e",_position!.longitude,
-                                                  _position!.latitude)
-                                                  .then((_) {
+                                    packageRepo
+                                        .createPackage(
+                                        "8yujcf99c5-55bf-465c-b897-e65421f79cf7e",_position!.longitude,
+                                        _position!.latitude)
+                                        .then((_) {
 
-                                                   // context.pushReplacement("/");
+                                      // context.pushReplacement("/");
 
 
-                                              });
+                                    });
 
 
                                   }
@@ -309,16 +298,7 @@ class _CreatePackageScreenState extends State<CreatePackageScreen> {
               ),
             ),
           );
-        },),) :
-      MultiProvider(providers: [
-        ChangeNotifierProvider(create: (context) => LoginRepository.instance(),
-        ),
-        ChangeNotifierProvider(create: (context) => ProfileRepository.instance(),
-        ),
-
-
-      ],child: WelcomeScreen(),);
-    }))
+        },),)
 
 
 
