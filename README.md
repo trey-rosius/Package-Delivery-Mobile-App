@@ -13,6 +13,12 @@ Some screenshots of the application
 
 ![high-level-overview](https://raw.githubusercontent.com/trey-rosius/Package-Delivery-Mobile-App/master/assets/images/package_details.png)
 
+
+https://github.com/trey-rosius/Package-Delivery-Mobile-App/assets/29162353/e870981a-e505-4207-9b88-1f48ed85c59d
+
+
+
+
 ## Getting Started
 
 A few resources to get you started if this is your first Flutter project:
