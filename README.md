@@ -1,7 +1,7 @@
 # package_delivery
 
-This is the POC mobile application for the [package-delivery-microservice-api](https://github.com/trey-rosius/package-delivery-microservice) created
-with Diagrid Catalyst API
+This is a POC mobile application for the [package-delivery-microservice-api](https://github.com/trey-rosius/package-delivery-microservice) created
+with [Diagrid Catalyst API](https://pages.diagrid.io/catalyst-early-access-waitlist)
 
 Please follow the link above and read more if you're interested in knowing about how the API was built.
 
