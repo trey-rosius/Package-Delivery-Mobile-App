@@ -11,7 +11,7 @@ Please [read more here](https://github.com/trey-rosius/cdk-package-delivery-micr
 
 Some screenshots of the application
 
-![high-level-overview](https://raw.githubusercontent.com/trey-rosius/Package-Delivery-Mobile-App/master/assets/package_details.png)
+![high-level-overview](https://raw.githubusercontent.com/trey-rosius/Package-Delivery-Mobile-App/master/assets/images/package_details.png)
 
 ## Getting Started
 
